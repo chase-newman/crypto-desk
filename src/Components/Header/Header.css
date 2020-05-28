@@ -1,0 +1,13 @@
+.price-history-link {
+    color: white;
+}
+.price-history-link:hover {
+    text-decoration: none;
+}
+.navbar-brand {
+    display: flex;
+    align-items: center;
+}
+.fab {
+    margin-left: 10px;
+}
