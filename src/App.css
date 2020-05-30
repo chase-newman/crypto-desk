@@ -1,4 +1,9 @@
 .App {
   font-family: 'Montserrat', sans-serif;
+  background-color: black;
+  /*background-color: #00004d;*/
 }
-
+.btn-primary {
+  background-color: #cc00cc;
+  border: 1px solid #cc00cc;
+}

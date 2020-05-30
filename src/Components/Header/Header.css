@@ -1,5 +1,8 @@
 .price-history-link {
-    color: white;
+    color: black;
+    background-color: #ff6600;
+    padding: 12px;
+    margin-right: 40px;
 }
 .price-history-link:hover {
     text-decoration: none;
@@ -10,4 +13,27 @@
 }
 .fab {
     margin-left: 10px;
+    color: #ff6600;
+}
+.bg-dark {
+    background-color: black !important;
+}
+.navbar-nav {
+    display: flex;
+    flex-direction: row;
+}
+.news-header-link {
+    color: white;
+    margin-right: 40px;
+    font-size: 18px;
+    display: flex;
+}
+.about-header-link {
+    color: white;
+    margin-right: 40px;
+    font-size: 18px;
+    display: flex;
+}
+.fa-sort-down {
+    margin-left: 5px;
 }
