@@ -2,7 +2,9 @@
     color: black;
     background-color: #ff6600;
     padding: 12px;
-    margin-right: 40px;
+    margin-right: 10px;
+    display: flex;
+    align-items: center;
 }
 .price-history-link:hover {
     text-decoration: none;
@@ -27,12 +29,14 @@
     margin-right: 40px;
     font-size: 18px;
     display: flex;
+    padding: 12px;
 }
 .about-header-link {
     color: white;
     margin-right: 40px;
     font-size: 18px;
     display: flex;
+    padding: 12px;
 }
 .fa-sort-down {
     margin-left: 5px;

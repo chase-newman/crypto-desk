@@ -5,6 +5,7 @@
 .lead {
     margin-top: 25px;
     margin-bottom: 0;
+    font-size: 2.2em;
 }
 .jumbotron {
     background-color: black;
@@ -15,15 +16,40 @@
 }
 .main-article-details {
     font-weight: bold;
-    font-size: 12px;
+    font-size: 14px;
+    color: #ff6600 !important;
     color: white;
-    margin: 0 5px;
+    margin-right: 5px;
 }
 .lead-primary-category {
     text-align: center;
-    width: 15%;
+    width: 125px;
     color: black;
     background-color: #ff6600;
     padding: 12px;
     margin-bottom: 5px;
+}
+.main-article-description {
+    color: #e6e6e6;
+    font-size: 1.2em;
+}
+.fire-one {
+    font-size: 2em;
+    color: #ff0000;
+    margin-left: 15px;
+}
+.fire-two {
+    font-size: 2em;
+    color: #ff6600;
+    margin-left: 15px;
+}
+#hotness-one {
+    color: #cc00cc;;
+    font-size: 20px;
+    margin-left: 10px;
+}
+#hotness-two {
+    color: #cc00cc;
+    font-size: 20px;
+    margin-left: 10px;
 }

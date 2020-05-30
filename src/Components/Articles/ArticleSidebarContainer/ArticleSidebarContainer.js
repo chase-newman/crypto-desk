@@ -6,12 +6,13 @@ import './ArticleSidebarContainer.css';
 const ArticleSidebarContainer = (props) => {
     let data;
     if(props.articles) {
-        data = props.articles.splice(1,3);
+        data = props.articles.splice(2,3);
         console.log(data);
         data = data.map((el,index) => {
              return <SidebarArticle 
                         title={el.title} 
                         key={index} 
+                        num={index}
                         primaryCategory={el.primaryCategory} 
                         image={el.originalImageUrl}
                         description={el.description}/>
