@@ -1,17 +1,20 @@
 import React, { Component } from 'react';
+import {Route} from 'react-router-dom';
 import './App.css';
 import axios from 'axios';
 import Header from './Components/Header/Header';
 import Ticker from './Components/Ticker/Ticker';
 import Articles from './Components/Articles/Articles';
-
+import History from './Components/History/History';
 
 class App extends Component {
   state = {
     bitcoinPrice: null,
     ethereumPrice: null,
     ripplePrice: null,
-    articles: null
+    articles: null,
+    historyLabels: null,
+    hisotryPrices: null
   }
   
   componentDidMount() {
@@ -54,11 +57,8 @@ class App extends Component {
         })
       });
       
-    //API call for 30 day historical bitcoin prices
-      // axios.get("https://api.coindesk.com/v1/bpi/historical/close.json")
-      //   .then(response => {
-      //     console.log(response); 
-      //   });
+    // API call for 30 day historical bitcoin prices
+
       
     
   }
@@ -69,12 +69,9 @@ class App extends Component {
       <div className="App">
         <Header />
         <div className="container-fluid">
-          <Ticker 
-            bitcoin={this.state.bitcoinPrice}
-            ethereum={this.state.ethereumPrice}
-            ripple={this.state.ripplePrice}/>
-          <Articles 
-            articles={this.state.articles}/>
+          <Route path="/" exact render={(props) => <Ticker bitcoin={this.state.bitcoinPrice} ethereum={this.state.ethereumPrice} ripple={this.state.ripplePrice}/>} />
+          <Route path="/" exact render={(props) => <Articles articles={this.state.articles}/>} />
+          <Route path="/history" render={(props) => <History labels={this.state.historyLabels} prices={this.state.historyPrices}/>} />
         </div>
       </div>
     );    

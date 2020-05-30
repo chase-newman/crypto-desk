@@ -45,6 +45,7 @@ const MainArticle = (props) => {
     
     return(
             <div className="col-lg-7 col-md-8-col-sm-10">
+                
                 <div className="jumbotron">
                         <div className="lead-primary-category">{primaryCategory}</div>
                         <img

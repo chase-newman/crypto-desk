@@ -21,8 +21,20 @@ const SidebarArticle = (props) => {
                 <p className="sidebar-article-category">{props.primaryCategory}</p>
                 <img src={props.image} alt="sidebar-imag" className="img-thumbnail" /> 
                 <h4>{props.title}</h4>
-                <p>{props.description}</p>
-                <a className="btn btn-primary btn-sm" href="/" role="button">Learn more</a>
+                <p>
+                    <span className="main-article-details">
+                        <strong>{props.domain}</strong>
+                    </span>
+                    <span className="main-article-details">
+                        <strong>{props.date}</strong>
+                    </span>
+                </p>
+                <p className="sidebar-description">{props.description}</p>
+                <a 
+                    className="btn btn-primary btn-sm" 
+                    href={props.url} target="_blank" 
+                    rel="noopener noreferrer" 
+                    role="button">Learn more</a>
             </li>
     );
 }

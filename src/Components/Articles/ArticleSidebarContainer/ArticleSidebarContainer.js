@@ -13,9 +13,12 @@ const ArticleSidebarContainer = (props) => {
                         title={el.title} 
                         key={index} 
                         num={index}
+                        date={el.publishedAt}
+                        domain={el.sourceDomain}
                         primaryCategory={el.primaryCategory} 
                         image={el.originalImageUrl}
-                        description={el.description}/>
+                        description={el.description}
+                        url={el.url}/>
         });
     } else {
         console.log("Not Ready");
