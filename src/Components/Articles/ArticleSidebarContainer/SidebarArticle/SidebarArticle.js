@@ -3,11 +3,10 @@ import './SidebarArticle.css';
 
 
 const SidebarArticle = (props) => {
-    console.log(props.num)
     let style = {
         borderBottom: "2px solid rgba(255,255,255,0.5)"
     }
-    if(props.num < 2) {
+    if(props.num < props.arraylength - 1) {
         style = {
             borderBottom: "2px solid rgba(255, 255, 255, 0.5)"
         }

@@ -35,14 +35,20 @@ class History extends Component {
                 }
               ]
             })
-        })
-    }
-    
+        });
+        
+      window.addEventListener('resize', () => {
+        this.setState({
+            isMobile: window.innerWidth < 1200
+        });
+    }, false);
+        
+      }
     
     render() {
     return (
-      <div className="row">
-        <div className="col-sm-12">
+      <div className="row bar-row">
+        <div className="col-lg-10 col-md-10 col-sm-12">
             <Bar
               data={this.state}
               options={{
@@ -59,6 +65,34 @@ class History extends Component {
                 }
               }}
             />
+        </div>
+        <div className="col-sm-6 col-md-2 col-lg-2">
+          <ul className="list-group history-group">
+            <li className="list-group-item history-item">
+              <p className="list-coin">Bitcoin</p>
+            </li>
+            <li className="list-group-item history-item">
+              <p className="list-coin">Ethereum</p>
+            </li>
+            <li className="list-group-item history-item">
+              <p className="list-coin">Ripple</p>
+            </li>
+            <li className="list-group-item history-item">
+              <p className="list-coin">Litecoin</p>
+            </li>
+            <li className="list-group-item history-item">
+              <p className="list-coin">Tether</p>
+            </li>
+            <li className="list-group-item history-item">
+              <p className="list-coin">EOS</p>
+            </li>
+            <li className="list-group-item history-item">
+              <p className="list-coin">Bitcoin SV</p>
+            </li>
+            <li className="list-group-item history-item">
+              <p className="list-coin">Bitcoin Cash</p>
+            </li>
+          </ul>
         </div>
       </div>
     );

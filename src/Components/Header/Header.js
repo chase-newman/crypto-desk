@@ -6,16 +6,16 @@ import './Header.css';
 const Header = () => {
     return(
         <nav className="navbar navbar-dark bg-dark sticky-top">
-          <span className="navbar-brand mb-0 h1">CryptoDesk  <i className="fab fa-bitcoin fa-2x"></i></span>
+            <Link to="/" className="navbar-brand">CryptoDesk <i className="fab fa-bitcoin fa-2x"></i></Link>
           <ul className="navbar-nav">
             <li className="nav-item">
-                <Link to="/" className="about-header-link">About <i className="fas fa-sort-down"></i></Link>
+                <Link to="/about" className="about-header-link">About <i className="fas fa-sort-down"></i></Link>
             </li>
             <li className="nav-item">
-                <Link to="/" className="news-header-link">News <i className="fas fa-sort-down"></i></Link>
+                <Link to="/news" className="news-header-link">News <i className="fas fa-sort-down"></i></Link>
             </li>
             <li className="nav-item">
-                <Link to="/history" className="price-history-link">30-Day History</Link>
+                <Link to="/history" className="price-history-link">30-Day Coin History</Link>
             </li>
           </ul>
         </nav>

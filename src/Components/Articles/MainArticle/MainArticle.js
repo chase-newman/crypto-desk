@@ -3,8 +3,7 @@ import './MainArticle.css';
 
 const MainArticle = (props) => {
     
-    
-    let imgUrl = "https://images.wsj.net/im-16358?width=620&size=1.5";
+    let imgUrl;
     let title;
     let date;
     let domain;
@@ -45,8 +44,13 @@ const MainArticle = (props) => {
     
     return(
             <div className="col-lg-7 col-md-8-col-sm-10">
-                
                 <div className="jumbotron">
+                        <p>
+                            <span className="news-headline">News</span> 
+                            <span className="date-headline">
+                                <strong>{props.date}</strong>
+                            </span>
+                        </p>
                         <div className="lead-primary-category">{primaryCategory}</div>
                         <img
                             src={imgUrl}
@@ -62,7 +66,7 @@ const MainArticle = (props) => {
                             </span>
                         </p>
                         <p>
-                            <i class="fas fa-fire fire-one"></i> 
+                            <i className="fas fa-fire fire-one"></i> 
                             <span id="hotness-one">+{hotness}</span>
                         </p>
                         <p className="main-article-description">{description}</p>
@@ -89,7 +93,7 @@ const MainArticle = (props) => {
                             </span>
                         </p>
                         <p>
-                            <i class="fas fa-fire fire-two"></i> 
+                            <i className="fas fa-fire fire-two"></i> 
                             <span id="hotness-two">+{hotnessTwo}</span>
                         </p>
                         <p className="main-article-description">{descriptionTwo}</p>

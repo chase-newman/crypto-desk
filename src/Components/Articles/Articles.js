@@ -7,7 +7,7 @@ import './Articles.css';
 const Articles = (props) => {
     return(
         <div className="row main-article-row">
-            <MainArticle mainArticle={props.articles} />
+            <MainArticle mainArticle={props.articles} date={props.date}/>
             <ArticleSidebarContainer articles={props.articles}/>
         </div>
     );

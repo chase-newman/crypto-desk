@@ -5,11 +5,14 @@ import './ArticleSidebarContainer.css';
 
 const ArticleSidebarContainer = (props) => {
     let data;
+    let articleLength;
     if(props.articles) {
         data = props.articles.splice(2,3);
-        console.log(data);
+        articleLength = data.length
+        console.log(articleLength);
         data = data.map((el,index) => {
              return <SidebarArticle 
+                        arraylength={articleLength}
                         title={el.title} 
                         key={index} 
                         num={index}

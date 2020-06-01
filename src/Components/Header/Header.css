@@ -31,12 +31,18 @@
     display: flex;
     padding: 12px;
 }
+.news-header-link:hover {
+    text-decoration: none;
+}
 .about-header-link {
     color: white;
     margin-right: 40px;
     font-size: 18px;
     display: flex;
     padding: 12px;
+}
+.about-header-link:hover {
+    text-decoration: none;
 }
 .fa-sort-down {
     margin-left: 5px;
