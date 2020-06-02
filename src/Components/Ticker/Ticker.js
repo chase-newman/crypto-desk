@@ -22,13 +22,29 @@ class Ticker extends Component {
     }
     
     render() {
+        
+    let delta;
+    
+    if(this.props.bitcoinHistorical) {
+        let numOne = this.props.bitcoinHistorical.length - 1;
+        let numTwo = numOne - 1;
+        delta = (this.props.bitcoinHistorical[numOne] - this.props.bitcoinHistorical[numTwo]).toFixed(2);
+    }
+    
     return(
         <div>
         <div className="row ticker-row">
             <div className="col-lg-3 col-md-6  col-sm-8 bitcoin-ticker-col ticker">
                 <h3 className="ticker-coin"><strong>Bitcoin</strong> <span className="ticker-symbol">BTC</span></h3>
-                <p style={{color: "white"}}>${this.props.bitcoin}  <span style={{color: "#00ff00"}}><strong>+183.19</strong></span></p>
-                <BitcoinChart />
+                <p style={{color: "white"}}>${this.props.bitcoin}  <span style={delta > 0 ? {color: "#00ff00"} : {color: "red"}}>
+                        <strong>
+                            {delta > 0 ? <span>+</span> : <span></span>}{delta}
+                        </strong>
+                    </span>
+                </p>
+                <BitcoinChart 
+                    dateLabels={this.props.dateLabels}
+                    bitcoinData={this.props.bitcoinHistorical} />
             </div>
             <div className="col-lg-3 col-md-6 col-sm-8 ethereum-ticker-col ticker">
                 <h3 className="ticker-coin"><strong>Ethereum</strong> <span className="ticker-symbol">ETH</span></h3>

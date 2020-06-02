@@ -4,26 +4,46 @@ import './bitcoinChart.css';
 
 
 class BitcoinChart extends Component {
-    state = {  
-          labels: ['5/25', '5/26', '5/27',
-           '5/28', '5/29'],
-          datasets: [
-            {
-              fill: false,
-              lineTension: 0.1,
-              backgroundColor: "#00ff00",
-              borderColor: "#00ff00",
-              borderWidth: 1,
-              data: [8776.05, 8871.05, 8923.05, 9207.95, 9391.14]
-            }
-          ]
-    }
-    
     render() {
+        // let bitcoinData = [];
+        // if(this.props.bitcoinData) {
+        //     // this.props.bitcoinData.forEach(el => {
+        //     //   console.log(el)
+        //     // });
+        //     let i;
+        //     for(i=0; i<this.props.bitcoinData.length; i++) {
+        //         console.log(parseFloat(this.props.bitcoinData[i]));
+        //     }
+            
+        // }
+        let dateLabels = [];
+        if(this.props.dateLabels) {
+            this.props.dateLabels.forEach(el => {
+               let arr = el.split("");
+               let num = arr.indexOf(" ");
+               arr = arr.splice(num + 3, arr.length);
+               arr = arr.join("");
+               dateLabels.push(arr)
+            });
+        }
         return (
             <div className="chart">
                 <Line
-                    data={this.state}
+                    data={{  
+                      labels: dateLabels,
+                      datasets: [
+                        {
+                          fill: false,
+                          lineTension: 0.1,
+                          backgroundColor: "#00ff00",
+                          borderColor: "#00ff00",
+                          borderWidth: 1,
+                          data: this.props.bitcoinData
+                        }
+                    ]
+                }
+                        
+                    }
                     options={{
                         maintainAspectRatio: true,
                         legend: {

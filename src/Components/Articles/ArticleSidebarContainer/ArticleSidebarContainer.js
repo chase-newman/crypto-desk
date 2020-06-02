@@ -8,8 +8,7 @@ const ArticleSidebarContainer = (props) => {
     let articleLength;
     if(props.articles) {
         data = props.articles.splice(2,3);
-        articleLength = data.length
-        console.log(articleLength);
+        articleLength = data.length;
         data = data.map((el,index) => {
              return <SidebarArticle 
                         arraylength={articleLength}

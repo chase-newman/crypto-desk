@@ -12,15 +12,25 @@ import AboutPage from './Components/AboutPage/AboutPage';
 class App extends Component {
   state = {
     bitcoinCashPrice: null,
+    bitcoinCashHistorical: null,
     bitcoinSVPrice: null,
+    bitcoinSVHistorical: null,
     bitcoinPrice: null,
+    bitcoinHistorical: null,
     eosPrice: null,
+    eosHistorical: null,
     ethereumPrice: null,
+    ethereumHistorical: null,
     litecoinPrice: null,
+    litecoinHistorical: null,
     tetherPrice: null,
+    tetherHistorical: null,
     ripplePrice: null,
+    rippleHistorical: null,
     articles: null,
-    date: null
+    date: null,
+    historicalData: null,
+    dateLabels: null
   }
   
   componentDidMount() {
@@ -85,10 +95,50 @@ class App extends Component {
           axios.get("https://crypto-desk-7f5da.firebaseio.com/coinData.json")
             .then(response => {
               let data = Object.values(response.data);
-              data = data[0].bitcoinCash.date;
+              data = data[data.length - 1].bitcoinCash.date;
     //If the data is current we want to return from the function and not post anything to Firebase
               if(data === this.state.date) {
                 console.log("Dates are the same!");
+                axios.get("https://crypto-desk-7f5da.firebaseio.com/coinData.json")
+                .then(response => {
+                    let data = Object.entries(response.data);
+                    console.log(data);
+                    let dateLabels = [];
+                    let bitcoinCashHistorical = [];
+                    let bitcoinSVHistorical = [];
+                    let bitcoinHistorical = [];
+                    let eosHistorical = [];
+                    let ethereumHistorical = [];
+                    let litecoinHistorical = [];
+                    let tetherHistorical = [];
+                    let rippleHistorical = [];
+                    data.forEach(el => {
+                      dateLabels.push(el[1].bitcoinCash.date);
+                      bitcoinCashHistorical.push(el[1].bitcoinCash.price);
+                      bitcoinSVHistorical.push(el[1].bitcoinSVPrice.price);
+                      bitcoinHistorical.push(el[1].bitcoin.price);
+                      eosHistorical.push(el[1].eos.price);
+                      ethereumHistorical.push(el[1].ethereum.price);
+                      litecoinHistorical.push(el[1].litecoin.price);
+                      tetherHistorical.push(el[1].tether.price);
+                      rippleHistorical.push(el[1].ripple.ripple);
+                    });
+                    // data.forEach(el => {
+                    //   bitcoinCashHistorical.push(el[1].bitcoinCash.price);
+                    // });
+                    
+                    this.setState({
+                      bitcoinCashHistorical,
+                      bitcoinSVHistorical,
+                      bitcoinHistorical,
+                      eosHistorical,
+                      ethereumHistorical,
+                      litecoinHistorical,
+                      tetherHistorical,
+                      rippleHistorical,
+                      dateLabels
+                    });
+                });
               } else {
                 
     //But if the dates do not match we want to post today's coin prices into a firebase database 
@@ -104,6 +154,10 @@ class App extends Component {
                 bitcoinSVPrice: {
                     price: this.state.bitcoinSVPrice,
                     date: this.state.date
+                },
+                bitcoin: {
+                    price: this.state.bitcoinPrice,
+                    data: this.state.date
                 },
                 eos: {
                     price: this.state.eosPrice,
@@ -127,7 +181,14 @@ class App extends Component {
                 }
               },
               contentType: "application/JSON"
-            }).then(response => console.log(response)); 
+            }).then(response => {
+              axios.get("https://crypto-desk-7f5da.firebaseio.com/coinData")
+                .then(response => {
+                    this.setState({
+                      historicalData: response.data
+                    });
+                });
+            }); 
               }
             });
         });
@@ -154,13 +215,23 @@ class App extends Component {
             render={(props) => 
               <Ticker
                 bitcoinCash={this.state.bitcoinCashPrice}
+                bitcoinCashHistorical={this.state.bitcoinCashHistorical}
                 bitcoinSV={this.state.bitcoinSVPrice}
+                bitcoinSVHistorical={this.state.bitcoinSVHistorical}
                 bitcoin={this.state.bitcoinPrice}
+                bitcoinHistorical={this.state.bitcoinHistorical}
                 eos={this.state.eosPrice}
+                eosHistorical={this.state.eosHistorical}
                 ethereum={this.state.ethereumPrice}
+                ethereumHistorical={this.state.ethereumHistorical}
                 litecoin={this.state.litecoinPrice}
+                litecoinHistorical={this.state.litecoinHistorical}
                 tether={this.state.tetherPrice}
-                ripple={this.state.ripplePrice}/>} />
+                tetherHistorical={this.state.tetherHistorical}
+                ripple={this.state.ripplePrice}
+                rippleHistorical={this.state.rippleHistorical}
+                historicalData={this.state.historicalData}
+                dateLabels={this.state.dateLabels}/>} />
           <Route path="/" exact render={(props) => <Articles date={this.state.date} articles={this.state.articles}/>} />
           <Route path="/history" render={(props) => <History labels={this.state.historyLabels} prices={this.state.historyPrices}/>} />
           <Route path="/news" render={(props) => <FullArticleList articles={this.state.articles}/>} />
