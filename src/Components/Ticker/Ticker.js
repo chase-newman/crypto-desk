@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import Chart from '../Charts/Chart/Chart';
 import BitcoinChart from '../Charts/BitcoinChart/bitcoinChart';
 import EthereumChart from '../Charts/EthereumChart/ethereumChart';
 import RippleChart from '../Charts/RippleChart/rippleChart';
@@ -7,15 +8,24 @@ import './Ticker.css';
 
 
 class Ticker extends Component {
-    state = {
-        showSecondRow: false
+    constructor(props) {
+        super(props);
+        this.state = {
+            showSecondRow: false,
+            
+        }
+        
     }
-    
-    
+            
+
+
+    onComponentDidMount() {
+        
+    }
+
     arrowDownClickHandler = () => {
         this.setState({showSecondRow: true})
     }
-    
     
     arrowUpClickHandler = () => {
         this.setState({showSecondRow: false})
@@ -23,38 +33,48 @@ class Ticker extends Component {
     
     render() {
         
-    let delta;
-    
-    if(this.props.bitcoinHistorical) {
-        let numOne = this.props.bitcoinHistorical.length - 1;
-        let numTwo = numOne - 1;
-        delta = (this.props.bitcoinHistorical[numOne] - this.props.bitcoinHistorical[numTwo]).toFixed(2);
-    }
     
     return(
         <div>
         <div className="row ticker-row">
             <div className="col-lg-3 col-md-6  col-sm-8 bitcoin-ticker-col ticker">
                 <h3 className="ticker-coin"><strong>Bitcoin</strong> <span className="ticker-symbol">BTC</span></h3>
-                <p style={{color: "white"}}>${this.props.bitcoin}  <span style={delta > 0 ? {color: "#00ff00"} : {color: "red"}}>
+                <p style={{color: "white"}}>${this.props.bitcoin}  <span style={this.props.bitcoinDelta > 0 ? {color: "#00ff00"} : {color: "red"}}>
                         <strong>
-                            {delta > 0 ? <span>+</span> : <span></span>}{delta}
+                            {this.props.bitcoinDelta > 0 ? <span>+</span> : <span></span>}{this.props.bitcoinDelta}
                         </strong>
                     </span>
                 </p>
                 <BitcoinChart 
                     dateLabels={this.props.dateLabels}
-                    bitcoinData={this.props.bitcoinHistorical} />
+                    bitcoinData={this.props.bitcoinHistorical} 
+                    bitcoinDelta={this.props.bitcoinDelta}/>
             </div>
             <div className="col-lg-3 col-md-6 col-sm-8 ethereum-ticker-col ticker">
                 <h3 className="ticker-coin"><strong>Ethereum</strong> <span className="ticker-symbol">ETH</span></h3>
-                <p style={{color: "white"}}>${this.props.ethereum}  <span style={{color: "#ff3333"}}><strong>-1.25</strong></span></p>
-                <EthereumChart />
+                <p style={{color: "white"}}>${this.props.ethereum}  <span style={this.props.ethereumDelta > 0 ? {color: "#00ff00"} : {color: "red"}}>
+                        <strong>
+                            {this.props.ethereumDelta > 0 ? <span>+</span> : <span></span>}{this.props.ethereumDelta}
+                        </strong>
+                    </span>
+                </p>
+                <EthereumChart 
+                    dateLabels={this.props.dateLabels}
+                    ethereumData={this.props.ethereumHistorical}
+                    ethereumDelta={this.props.ethereumDelta} />
             </div>
             <div className="col-lg-3 col-md-6 col-sm-8 ripple-ticker-col ticker">
                 <h3 className="ticker-coin"><strong>Ripple</strong> <span className="ticker-symbol">XRP</span></h3>
-                <p style={{color: "white"}}>${this.props.ripple}  <span style={{color: "#ff3333"}}><strong>-0.0036</strong></span></p>
-                <RippleChart />
+                <p style={{color: "white"}}>${this.props.ripple}  <span style={this.props.ethereumDelta > 0 ? {color: "#00ff00"} : {color: "red"}}>
+                        <strong>
+                            {this.props.rippleDelta > 0 ? <span>+</span> : <span></span>}{this.props.rippleDelta}
+                        </strong>
+                    </span>
+                </p>
+                <RippleChart 
+                    dateLabels={this.props.dateLabels}
+                    rippleData={this.props.rippleHistorical}
+                    rippleDelta={this.props.rippleDelta}/>
             </div>
             <div className="col-lg-3 col-md-6 col-sm-8 ripple-ticker-col ticker">
                 <h3 className="ticker-coin"><strong>Litecoin</strong> <span className="ticker-symbol">LTC</span></h3>

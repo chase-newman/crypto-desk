@@ -1,27 +1,25 @@
-import React, { Component } from 'react';
-import {Line} from 'react-chartjs-2';
-import './rippleChart.css';
+import React from 'react';
+import { Line } from 'react-chartjs-2';
+import './Chart.css';
 
 
-class RippleChart extends Component {
-       render() {
-            
-        let dateLabels = [];
+const Chart = (props) => {
+    console.log(props)
+    let dateLabels = [];
         if(this.props.dateLabels) {
             this.props.dateLabels.forEach(el => {
-               let arr = el.split("");
-               for(let i = 0; i <= 5; i++) {
-                   arr.pop();
-               }
-               let num = arr.indexOf(" ");
-               arr = arr.splice(num + 3, arr.length);
-               arr = arr.join("");
-               dateLabels.push(arr)
+              let arr = el.split("");
+              for(let i = 1; i<=6; i++) {
+                  arr.pop();
+              }
+              let num = arr.indexOf(" ");
+              arr = arr.splice(num + 3, arr.length);
+              arr = arr.join("");
+              dateLabels.push(arr)
             });
         }
-        
-        return (
-            <div className="chart">
+    return(
+        <div className="chart">
                 <Line
                     data={{  
                       labels: dateLabels,
@@ -29,14 +27,15 @@ class RippleChart extends Component {
                         {
                           fill: false,
                           lineTension: 0.1,
-                          backgroundColor: this.props.rippleDelta > 0 ? "#00ff00" : "red",
-                          borderColor: this.props.rippleDelta > 0 ? "#00ff00" : "red",
+                          backgroundColor: "red",
+                          borderColor: "red",
                           borderWidth: 1,
-                          data: this.props.rippleData
+                          data: []
                         }
                     ]
                 }
-            }
+                        
+                    }
                     options={{
                         maintainAspectRatio: true,
                         legend: {
@@ -55,9 +54,9 @@ class RippleChart extends Component {
                     }
                     }}
                 />
-            </div>
-        );            
-    }
+            </div>    
+    );
 }
 
-export default RippleChart;
+
+export default Chart;

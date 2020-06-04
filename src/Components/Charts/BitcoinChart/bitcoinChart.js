@@ -5,21 +5,13 @@ import './bitcoinChart.css';
 
 class BitcoinChart extends Component {
     render() {
-        // let bitcoinData = [];
-        // if(this.props.bitcoinData) {
-        //     // this.props.bitcoinData.forEach(el => {
-        //     //   console.log(el)
-        //     // });
-        //     let i;
-        //     for(i=0; i<this.props.bitcoinData.length; i++) {
-        //         console.log(parseFloat(this.props.bitcoinData[i]));
-        //     }
-            
-        // }
         let dateLabels = [];
         if(this.props.dateLabels) {
             this.props.dateLabels.forEach(el => {
                let arr = el.split("");
+               for(let i = 1; i<=6; i++) {
+                   arr.pop();
+               }
                let num = arr.indexOf(" ");
                arr = arr.splice(num + 3, arr.length);
                arr = arr.join("");
@@ -35,8 +27,8 @@ class BitcoinChart extends Component {
                         {
                           fill: false,
                           lineTension: 0.1,
-                          backgroundColor: "#00ff00",
-                          borderColor: "#00ff00",
+                          backgroundColor: this.props.bitcoinDelta > 0 ? "#00ff00" : "red",
+                          borderColor: this.props.bitcoinDelta > 0 ? "#00ff00" : "red",
                           borderWidth: 1,
                           data: this.props.bitcoinData
                         }
