@@ -1,9 +1,8 @@
-body {
-    background-color: white;
-}
 .about-row {
-    background-color: white;
+    color: white;
+    margin-top: 25px;
 }
 .tech-col {
     margin-left: 50px;
+    color: white;
 }

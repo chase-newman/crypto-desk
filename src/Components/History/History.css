@@ -1,20 +1,22 @@
 body {
     background-color: black;
 }
-
+button:hover {
+   background-color: rgb(75,192,192) !important; 
+   cursor: pointer;
+}
+button:focus {
+    outline: none;
+}
 .history-group {
     margin-top: 50px;
 }
 .history-item {
-    background-color: #ff6600;
     min-width: 125px;
-}
-.history-item:hover {
-    cursor: pointer;
-    background-color: rgb(75,192,192);
 }
 .list-coin {
     display: flex;
     align-items: center; 
     margin-bottom: 0;
 }
+

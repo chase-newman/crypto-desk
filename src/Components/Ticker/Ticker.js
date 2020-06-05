@@ -4,6 +4,10 @@ import BitcoinChart from '../Charts/BitcoinChart/bitcoinChart';
 import EthereumChart from '../Charts/EthereumChart/ethereumChart';
 import RippleChart from '../Charts/RippleChart/rippleChart';
 import LitecoinChart from '../Charts/LitcoinChart/litecoinChart';
+import TetherChart from '../Charts/TetherChart/tetherChart';
+import EOSChart from '../Charts/EOSChart/eosChart';
+import BitcoinSVChart from '../Charts/BitcoinSVChart/bitcoinSVChart';
+import BitcoinCashChart from '../Charts/BitcoinCashChart/bitcoinCashChart';
 import './Ticker.css';
 
 
@@ -17,11 +21,6 @@ class Ticker extends Component {
         
     }
             
-
-
-    onComponentDidMount() {
-        
-    }
 
     arrowDownClickHandler = () => {
         this.setState({showSecondRow: true})
@@ -65,7 +64,7 @@ class Ticker extends Component {
             </div>
             <div className="col-lg-3 col-md-6 col-sm-8 ripple-ticker-col ticker">
                 <h3 className="ticker-coin"><strong>Ripple</strong> <span className="ticker-symbol">XRP</span></h3>
-                <p style={{color: "white"}}>${this.props.ripple}  <span style={this.props.ethereumDelta > 0 ? {color: "#00ff00"} : {color: "red"}}>
+                <p style={{color: "white"}}>${this.props.ripple}  <span style={this.props.rippleDelta > 0 ? {color: "#00ff00"} : {color: "red"}}>
                         <strong>
                             {this.props.rippleDelta > 0 ? <span>+</span> : <span></span>}{this.props.rippleDelta}
                         </strong>
@@ -78,8 +77,16 @@ class Ticker extends Component {
             </div>
             <div className="col-lg-3 col-md-6 col-sm-8 ripple-ticker-col ticker">
                 <h3 className="ticker-coin"><strong>Litecoin</strong> <span className="ticker-symbol">LTC</span></h3>
-                <p style={{color: "white"}}>${this.props.litecoin}  <span style={{color: "#ff3333"}}><strong>-0.51</strong></span></p>
-                <LitecoinChart />
+                <p style={{color: "white"}}>${this.props.litecoin}  <span style={this.props.litecoinDelta > 0 ? {color: "#00ff00"} : {color: "red"}}>
+                        <strong>
+                            {this.props.litecoinDelta > 0 ? <span>+</span> : <span></span>}{this.props.litecoinDelta}
+                        </strong>
+                    </span>
+                </p>
+                <LitecoinChart 
+                    dateLabels={this.props.dateLabels}
+                    litecoinData={this.props.litecoinHistorical}
+                    litecoinDelta={this.props.litecoinDelta} />
                 {this.state.showSecondRow ? null : 
                 <i 
                     className="fas fa-arrow-circle-down fa-2x"
@@ -89,26 +96,58 @@ class Ticker extends Component {
             </div>
         </div>
             {this.state.showSecondRow ? 
-                        <div className="row ticker-row">
+                <div className="row ticker-row">
                 <div className="col-lg-3 col-md-6 col-sm-8 bitcoin-ticker-col ticker">
                     <h3 className="ticker-coin"><strong>Tether</strong> <span className="ticker-symbol">USDT</span></h3>
-                    <p style={{color: "white"}}>${this.props.tether}  <span style={{color: "#00ff00"}}><strong>+183.19</strong></span></p>
-                    <BitcoinChart />
+                    <p style={{color: "white"}}>${this.props.tether}  <span style={this.props.tetherDelta > 0 ? {color: "#00ff00"} : {color: "red"}}>
+                            <strong>
+                                {this.props.tetherDelta > 0 ? <span>+</span> : <span></span>}{this.props.tetherDelta}
+                            </strong>
+                        </span>
+                    </p>
+                    <TetherChart                     
+                        dateLabels={this.props.dateLabels}
+                        tetherData={this.props.tetherHistorical}
+                        tetherDelta={this.props.tetherDelta} />
                 </div>
                 <div className="col-lg-3 col-md-6 col-sm-8 ethereum-ticker-col ticker">
                     <h3 className="ticker-coin"><strong>EOS</strong> <span className="ticker-symbol">EOS</span></h3>
-                    <p style={{color: "white"}}>${this.props.eos}  <span style={{color: "#ff3333"}}><strong>-1.25</strong></span></p>
-                    <EthereumChart />
+                    <p style={{color: "white"}}>${this.props.eos}  <span style={this.props.eosDelta > 0 ? {color: "#00ff00"} : {color: "red"}}>
+                            <strong>
+                                {this.props.eosDelta > 0 ? <span>+</span> : <span></span>}{this.props.eosDelta}
+                            </strong>
+                        </span>
+                    </p>
+                    <EOSChart
+                        dateLabels={this.props.dateLabels}
+                        eosData={this.props.eosHistorical}
+                        eosDelta={this.props.eosDelta}/>
                 </div>
                 <div className="col-lg-3 col-md-6 col-sm-8 ripple-ticker-col ticker">
                     <h3 className="ticker-coin"><strong>Bitcoin SV</strong> <span className="ticker-symbol">BSV</span></h3>
-                    <p style={{color: "white"}}>${this.props.bitcoinSV}  <span style={{color: "#ff3333"}}><strong>-0.0036</strong></span></p>
-                    <RippleChart />
+                    <p style={{color: "white"}}>${this.props.bitcoinSV}  <span style={this.props.bitcoinSVDelta > 0 ? {color: "#00ff00"} : {color: "red"}}>
+                            <strong>
+                                {this.props.bitcoinSVDelta > 0 ? <span>+</span> : <span></span>}{this.props.bitcoinSVDelta}
+                            </strong>
+                        </span>
+                    </p>
+                    <BitcoinSVChart 
+                        dateLabels={this.props.dateLabels}
+                        bitcoinSVData={this.props.bitcoinSVHistorical}
+                        bitcoinSVDelta={this.props.bitcoinSVDelta}  />
                 </div>
                 <div className="col-lg-3 col-md-6 col-sm-8 ripple-ticker-col ticker">
                     <h3 className="ticker-coin"><strong>Bitcoin Cash</strong> <span className="ticker-symbol">BSH</span></h3>
-                    <p style={{color: "white"}}>${this.props.bitcoinCash}  <span style={{color: "#ff3333"}}><strong>-0.51</strong></span></p>
-                    <LitecoinChart />
+                    <p style={{color: "white"}}>${this.props.bitcoinCash}  <span style={this.props.bitcoinCashDelta > 0 ? {color: "#00ff00"} : {color: "red"}}>
+                            <strong>
+                                {this.props.bitcoinCashDelta > 0 ? <span>+</span> : <span></span>}{this.props.bitcoinCashDelta}
+                            </strong>
+                        </span>
+                    </p>
+                    <BitcoinCashChart
+                        dateLabels={this.props.dateLabels}
+                        bitcoinCashData={this.props.bitcoinCashHistorical}
+                        bitcoinCashDelta={this.props.bitcoinCashDelta}/>
                     <i 
                         className="fas fa-arrow-circle-up fa-2x"
                         onClick={this.arrowUpClickHandler}></i>

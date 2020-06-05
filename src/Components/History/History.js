@@ -8,6 +8,17 @@ class History extends Component {
     constructor(props) {
     super(props)
       this.state = {
+      Bitcoin: true,
+      listItemColors: {
+        bitcoin: "rgba(75,192,192,1)",
+        ethereum: "#ff6600",
+        ripple: "#ff6600",
+        litecoin: "#ff6600",
+        tether: "#ff6600",
+        eos: "#ff6600",
+        bitcoinSV: "#ff6600",
+        bitcoinCash: "#ff6600"
+      },
       labels: null,
       datasets: [
         {
@@ -37,13 +48,46 @@ class History extends Component {
             })
         });
         
-      window.addEventListener('resize', () => {
-        this.setState({
-            isMobile: window.innerWidth < 1200
-        });
-    }, false);
         
       }
+      
+    listItemClicked = (event) => {
+        // let coin = event.target.innerHTML;
+        // if(coin === "Bitcoin SV" || "Bitcoin Cash") {
+        //   coin = coin.split("");
+        //   let num = coin.indexOf(" ");
+        //   console.log(coin, num);
+        //   coin.splice(num, 1);
+        //   console.log(coin);
+        // } else {
+        //   console.log("No spaces in coin name");
+        // }
+        
+        console.log(event.target.innerHTML)
+
+        this.setState({
+            listItemColors: {
+              bitcoin: "#ff6600",
+              ethereum: "#ff6600",
+              ripple: "#ff6600",
+              litecoin: "#ff6600",
+              tether: "#ff6600",
+              eos: "#ff6600",
+              bitcoinSV: "#ff6600",
+              bitcoinCash: "#ff6600",
+              [event.target.name]: 'rgba(75,192,192,1)'
+            },
+            Bitcoin: false,
+            Ethereum: false,
+            Ripple: false,
+            Litecoin: false,
+            Tether: false,
+            EOS: false,
+            BitcoinSV: false,
+            BitcoinCash: false,
+            [event.target.innerHTML]: true
+        });
+    };
     
     render() {
     return (
@@ -68,30 +112,46 @@ class History extends Component {
         </div>
         <div className="col-sm-6 col-md-2 col-lg-2">
           <ul className="list-group history-group">
-            <li className="list-group-item history-item">
-              <p className="list-coin">Bitcoin</p>
-            </li>
-            <li className="list-group-item history-item">
-              <p className="list-coin">Ethereum</p>
-            </li>
-            <li className="list-group-item history-item">
-              <p className="list-coin">Ripple</p>
-            </li>
-            <li className="list-group-item history-item">
-              <p className="list-coin">Litecoin</p>
-            </li>
-            <li className="list-group-item history-item">
-              <p className="list-coin">Tether</p>
-            </li>
-            <li className="list-group-item history-item">
-              <p className="list-coin">EOS</p>
-            </li>
-            <li className="list-group-item history-item">
-              <p className="list-coin">Bitcoin SV</p>
-            </li>
-            <li className="list-group-item history-item">
-              <p className="list-coin">Bitcoin Cash</p>
-            </li>
+            <button
+              style={{backgroundColor: this.state.listItemColors.bitcoin}}
+              onClick={this.listItemClicked}
+              name="bitcoin"
+              className="list-group-item history-item list-coin">Bitcoin</button>
+            <button
+              style={{backgroundColor: this.state.listItemColors.ethereum}}
+              onClick={this.listItemClicked}
+              name="ethereum"
+              className="list-group-item history-item list-coin">Ethereum</button>
+            <button
+              style={{backgroundColor: this.state.listItemColors.ripple}}
+              onClick={this.listItemClicked}
+              name="ripple"
+              className="list-group-item history-item list-coin">Ripple</button>
+            <button
+              style={{backgroundColor: this.state.listItemColors.litecoin}}
+              onClick={this.listItemClicked}
+              name="litecoin"
+              className="list-group-item history-item list-coin">Litecoin</button>
+            <button
+              style={{backgroundColor: this.state.listItemColors.tether}}
+              onClick={this.listItemClicked}
+              name="tether"
+              className="list-group-item history-item list-coin">Tether</button>
+            <button
+              style={{backgroundColor: this.state.listItemColors.eos}}
+              onClick={this.listItemClicked}
+              name="eos"
+              className="list-group-item history-item list-coin">EOS</button>
+            <button
+              style={{backgroundColor: this.state.listItemColors.bitcoinSV}}
+              onClick={this.listItemClicked}
+              name="bitcoinSV"
+              className="list-group-item history-item list-coin">Bitcoin SV</button>
+            <button
+              style={{backgroundColor: this.state.listItemColors.bitcoinCash}}
+              onClick={this.listItemClicked}
+              name="bitcoinCash"
+              className="list-group-item history-item list-coin">Bitcoin Cash</button>
           </ul>
         </div>
       </div>

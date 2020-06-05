@@ -54,20 +54,20 @@ class App extends Component {
       
     // API call from cryptocompare, used for coin prices -  bitcoin, etheruem, bitcoin cash, bitcoin sv
     // EOS, litecoin, tether, ripple. Initially all up to date coin prices are set to state. 
-    axios.get("https://min-api.cryptocompare.com/data/pricemulti?fsyms=BTC,ETH,XRP,LTC,USDT,EOS,BSV,BCH&tsyms=USD,EUR&api_key=4c4f03a2edec941b0106c48d324569714c2b288190e02f402b73d5df8a62cd6a")
-      .then(response => {
+    // axios.get("https://min-api.cryptocompare.com/data/pricemulti?fsyms=BTC,ETH,XRP,LTC,USDT,EOS,BSV,BCH&tsyms=USD,EUR&api_key=4c4f03a2edec941b0106c48d324569714c2b288190e02f402b73d5df8a62cd6a")
+    //   .then(response => {
         
-    //Set State to hold the current coin prices
-        this.setState({
-          bitcoinCashPrice: response.data.BCH.USD,
-          bitcoinSVPrice: response.data.BSV.USD,
-          bitcoinPrice: response.data.BTC.USD,
-          eosPrice: response.data.EOS.USD,
-          ethereumPrice: response.data.ETH.USD,
-          litecoinPrice: response.data.LTC.USD,
-          tetherPrice: response.data.USDT.USD,
-          ripplePrice: response.data.XRP.USD
-        }, () => {
+    // //Set State to hold the current coin prices
+    //     this.setState({
+    //       bitcoinCashPrice: response.data.BCH.USD,
+    //       bitcoinSVPrice: response.data.BSV.USD,
+    //       bitcoinPrice: response.data.BTC.USD,
+    //       eosPrice: response.data.EOS.USD,
+    //       ethereumPrice: response.data.ETH.USD,
+    //       litecoinPrice: response.data.LTC.USD,
+    //       tetherPrice: response.data.USDT.USD,
+    //       ripplePrice: response.data.XRP.USD
+    //     }, () => {
             
     //Here we get the the date from the most recent post in the firebase database to check and see if the data is current
           axios.get("https://crypto-desk-7f5da.firebaseio.com/coinData.json")
@@ -80,139 +80,168 @@ class App extends Component {
     //If the data is current we want to update the most recent posted data in the firebase database to reflect
     //the most up to date coin prices
               if(firebaseDate === this.state.date) {
-                  axios({
-                      method: "put",
-                      url: `https://crypto-desk-7f5da.firebaseio.com/coinData/${id}.json`,
-                      data: {
-                          bitcoinCash: {
-                              price: this.state.bitcoinCashPrice,
-                              date: this.state.date
+                  axios.get("https://min-api.cryptocompare.com/data/pricemulti?fsyms=BTC,ETH,XRP,LTC,USDT,EOS,BSV,BCH&tsyms=USD,EUR&api_key=4c4f03a2edec941b0106c48d324569714c2b288190e02f402b73d5df8a62cd6a")
+                    .then(response => {
+                      this.setState({
+                          bitcoinCashPrice: response.data.BCH.USD,
+                          bitcoinSVPrice: response.data.BSV.USD,
+                          bitcoinPrice: response.data.BTC.USD,
+                          eosPrice: response.data.EOS.USD,
+                          ethereumPrice: response.data.ETH.USD,
+                          litecoinPrice: response.data.LTC.USD,
+                          tetherPrice: response.data.USDT.USD,
+                          ripplePrice: response.data.XRP.USD
+                      }, () => {
+                        axios({
+                          method: "put",
+                          url: `https://crypto-desk-7f5da.firebaseio.com/coinData/${id}.json`,
+                          data: {
+                              bitcoinCash: {
+                                  price: this.state.bitcoinCashPrice,
+                                  date: this.state.date
+                              },
+                              bitcoinSVPrice: {
+                                  price: this.state.bitcoinSVPrice,
+                                  date: this.state.date
+                              },
+                              bitcoin: {
+                                  price: this.state.bitcoinPrice,
+                                  data: this.state.date
+                              },
+                              eos: {
+                                  price: this.state.eosPrice,
+                                  date: this.state.date
+                              },
+                              ethereum: {
+                                  price: this.state.ethereumPrice,
+                                  date: this.state.date 
+                              },
+                              litecoin: {
+                                  price: this.state.litecoinPrice,
+                                  date: this.state.date
+                              },
+                              tether: {
+                                  price: this.state.tetherPrice,
+                                  date: this.state.date
+                              },
+                              ripple: {
+                                  ripple: this.state.ripplePrice,
+                                  date: this.state.date
+                              }
                           },
-                          bitcoinSVPrice: {
-                              price: this.state.bitcoinSVPrice,
-                              date: this.state.date
-                          },
-                          bitcoin: {
-                              price: this.state.bitcoinPrice,
-                              data: this.state.date
-                          },
-                          eos: {
-                              price: this.state.eosPrice,
-                              date: this.state.date
-                          },
-                          ethereum: {
-                              price: this.state.ethereumPrice,
-                              date: this.state.date 
-                          },
-                          litecoin: {
-                              price: this.state.litecoinPrice,
-                              date: this.state.date
-                          },
-                          tether: {
-                              price: this.state.tetherPrice,
-                              date: this.state.date
-                          },
-                          ripple: {
-                              ripple: this.state.ripplePrice,
-                              date: this.state.date
-                          }
-                      },
-                      contentType: "application/JSON"
-                    }).then(response => {
-                        let dateLabels = [];
-                        let bitcoinCashHistorical = [];
-                        let bitcoinSVHistorical = [];
-                        let bitcoinHistorical = [];
-                        let eosHistorical = [];
-                        let ethereumHistorical = [];
-                        let litecoinHistorical = [];
-                        let tetherHistorical = [];
-                        let rippleHistorical = [];
-                        data.forEach(el => {
-                          dateLabels.push(el[1].bitcoinCash.date);
-                          bitcoinCashHistorical.push(el[1].bitcoinCash.price);
-                          bitcoinSVHistorical.push(el[1].bitcoinSVPrice.price);
-                          bitcoinHistorical.push(el[1].bitcoin.price);
-                          eosHistorical.push(el[1].eos.price);
-                          ethereumHistorical.push(el[1].ethereum.price);
-                          litecoinHistorical.push(el[1].litecoin.price);
-                          tetherHistorical.push(el[1].tether.price);
-                          rippleHistorical.push(el[1].ripple.ripple);
-                        });
-                        this.setState({
-                          bitcoinCashHistorical,
-                          bitcoinCashDelta: parseFloat((bitcoinCashHistorical[bitcoinCashHistorical.length - 1] - bitcoinCashHistorical[bitcoinCashHistorical.length - 2]).toFixed(2)),
-                          bitcoinSVHistorical,
-                          bitcoinSVDelta: parseFloat((bitcoinSVHistorical[bitcoinSVHistorical.length - 1] - bitcoinSVHistorical[bitcoinSVHistorical.length - 2]).toFixed(2)), 
-                          bitcoinHistorical,
-                          bitcoinDelta: parseFloat((bitcoinHistorical[bitcoinHistorical.length - 1] - bitcoinHistorical[bitcoinHistorical.length - 2]).toFixed(2)), 
-                          eosHistorical,
-                          eosDelta: parseFloat((eosHistorical[eosHistorical.length - 1] - eosHistorical[eosHistorical.length - 2]).toFixed(2)), 
-                          ethereumHistorical,
-                          ethereumDelta: parseFloat((eosHistorical[eosHistorical.length - 1] - eosHistorical[eosHistorical.length - 2]).toFixed(2)), 
-                          litecoinHistorical,
-                          litecoinDelta: parseFloat((litecoinHistorical[litecoinHistorical.length - 1] - litecoinHistorical[litecoinHistorical.length - 2]).toFixed(2)),
-                          tetherHistorical,
-                          tetherDelta: parseFloat((tetherHistorical[tetherHistorical.length - 1] - tetherHistorical[tetherHistorical.length - 2]).toFixed(2)),
-                          rippleHistorical,
-                          rippleDelta: parseFloat((rippleHistorical[rippleHistorical.length - 1] - rippleHistorical[eosHistorical.length - 2]).toFixed(4)),
-                          dateLabels
-                      });    
-                });
+                          contentType: "application/JSON"
+                        }).then(response => {
+                            console.log(response.data);
+                            let dateLabels = [];
+                            let bitcoinCashHistorical = [];
+                            let bitcoinSVHistorical = [];
+                            let bitcoinHistorical = [];
+                            let eosHistorical = [];
+                            let ethereumHistorical = [];
+                            let litecoinHistorical = [];
+                            let tetherHistorical = [];
+                            let rippleHistorical = [];
+                            data.forEach(el => {
+                              dateLabels.push(el[1].bitcoinCash.date);
+                              bitcoinCashHistorical.push(el[1].bitcoinCash.price);
+                              bitcoinSVHistorical.push(el[1].bitcoinSVPrice.price);
+                              bitcoinHistorical.push(el[1].bitcoin.price);
+                              eosHistorical.push(el[1].eos.price);
+                              ethereumHistorical.push(el[1].ethereum.price);
+                              litecoinHistorical.push(el[1].litecoin.price);
+                              tetherHistorical.push(el[1].tether.price);
+                              rippleHistorical.push(el[1].ripple.ripple);
+                            });
+                            this.setState({
+                              bitcoinCashHistorical,
+                              bitcoinCashDelta: parseFloat((bitcoinCashHistorical[bitcoinCashHistorical.length - 1] - bitcoinCashHistorical[bitcoinCashHistorical.length - 2]).toFixed(2)),
+                              bitcoinSVHistorical,
+                              bitcoinSVDelta: parseFloat((bitcoinSVHistorical[bitcoinSVHistorical.length - 1] - bitcoinSVHistorical[bitcoinSVHistorical.length - 2]).toFixed(2)), 
+                              bitcoinHistorical,
+                              bitcoinDelta: parseFloat((bitcoinHistorical[bitcoinHistorical.length - 1] - bitcoinHistorical[bitcoinHistorical.length - 2]).toFixed(2)), 
+                              eosHistorical,
+                              eosDelta: parseFloat((eosHistorical[eosHistorical.length - 1] - eosHistorical[eosHistorical.length - 2]).toFixed(2)), 
+                              ethereumHistorical,
+                              ethereumDelta: parseFloat((ethereumHistorical[ethereumHistorical.length - 1] - ethereumHistorical[ethereumHistorical.length - 2]).toFixed(2)), 
+                              litecoinHistorical,
+                              litecoinDelta: parseFloat((litecoinHistorical[litecoinHistorical.length - 1] - litecoinHistorical[litecoinHistorical.length - 2]).toFixed(2)),
+                              tetherHistorical,
+                              tetherDelta: parseFloat((tetherHistorical[tetherHistorical.length - 1] - tetherHistorical[tetherHistorical.length - 2]).toFixed(4)),
+                              rippleHistorical,
+                              rippleDelta: parseFloat((rippleHistorical[rippleHistorical.length - 1] - rippleHistorical[eosHistorical.length - 2]).toFixed(4)),
+                              dateLabels
+                          });    
+                    });
+                      })
+                    });
               } else {
                 
     //But if the dates do not match we want to post today's coin prices into a firebase database 
     //to store as historical data for future use.
-            axios({
-              method: "post",
-              url: "https://crypto-desk-7f5da.firebaseio.com/coinData.json",
-              data: {
-                bitcoinCash: {
-                    price: this.state.bitcoinCashPrice,
-                    date: this.state.date
-                },
-                bitcoinSVPrice: {
-                    price: this.state.bitcoinSVPrice,
-                    date: this.state.date
-                },
-                bitcoin: {
-                    price: this.state.bitcoinPrice,
-                    data: this.state.date
-                },
-                eos: {
-                    price: this.state.eosPrice,
-                    date: this.state.date
-                },
-                ethereum: {
-                    price: this.state.ethereumPrice,
-                    date: this.state.date 
-                },
-                litecoin: {
-                    price: this.state.litecoinPrice,
-                    date: this.state.date
-                },
-                tether: {
-                    price: this.state.tetherPrice,
-                    date: this.state.date
-                },
-                ripple: {
-                    ripple: this.state.ripplePrice,
-                    date: this.state.date
-                }
-              },
-              contentType: "application/JSON"
-            }).then(response => {
-              axios.get("https://crypto-desk-7f5da.firebaseio.com/coinData")
-                .then(response => {
-                    this.setState({
-                      historicalData: response.data
-                    });
-                });
-            }); 
-              }
-            });
-        });
-      });  
+            axios.get("https://min-api.cryptocompare.com/data/pricemulti?fsyms=BTC,ETH,XRP,LTC,USDT,EOS,BSV,BCH&tsyms=USD,EUR&api_key=4c4f03a2edec941b0106c48d324569714c2b288190e02f402b73d5df8a62cd6a")
+              .then(response => {
+                  this.setState({
+                      bitcoinCashPrice: response.data.BCH.USD,
+                      bitcoinSVPrice: response.data.BSV.USD,
+                      bitcoinPrice: response.data.BTC.USD,
+                      eosPrice: response.data.EOS.USD,
+                      ethereumPrice: response.data.ETH.USD,
+                      litecoinPrice: response.data.LTC.USD,
+                      tetherPrice: response.data.USDT.USD,
+                      ripplePrice: response.data.XRP.USD
+                  }, () => {
+                    axios({
+                      method: "post",
+                      url: "https://crypto-desk-7f5da.firebaseio.com/coinData.json",
+                      data: {
+                        bitcoinCash: {
+                            price: this.state.bitcoinCashPrice,
+                            date: this.state.date
+                        },
+                        bitcoinSVPrice: {
+                            price: this.state.bitcoinSVPrice,
+                            date: this.state.date
+                        },
+                        bitcoin: {
+                            price: this.state.bitcoinPrice,
+                            data: this.state.date
+                        },
+                        eos: {
+                            price: this.state.eosPrice,
+                            date: this.state.date
+                        },
+                        ethereum: {
+                            price: this.state.ethereumPrice,
+                            date: this.state.date 
+                        },
+                        litecoin: {
+                            price: this.state.litecoinPrice,
+                            date: this.state.date
+                        },
+                        tether: {
+                            price: this.state.tetherPrice,
+                            date: this.state.date
+                        },
+                        ripple: {
+                            ripple: this.state.ripplePrice,
+                            date: this.state.date
+                        }
+                      },
+                      contentType: "application/JSON"
+                    }).then(response => {
+                      axios.get("https://crypto-desk-7f5da.firebaseio.com/coinData")
+                        .then(response => {
+                            this.setState({
+                              historicalData: response.data
+                            });
+                        });
+                    });                    
+                  });
+              });
+            };
+          });
+        // });
+      // });  
       
     //API news call from cryptocontrol
        axios.get("https://cryptocontrol.io/api/v1/public/news/coin/bitcoin?key=a5f6f509a92918f1022b41f02c5f0dba")
@@ -236,7 +265,7 @@ class App extends Component {
               <Ticker
                 bitcoinCash={this.state.bitcoinCashPrice}
                 bitcoinCashHistorical={this.state.bitcoinCashHistorical}
-                bitoinCashDelta={this.state.bitcoinCashDelta}
+                bitcoinCashDelta={this.state.bitcoinCashDelta}
                 bitcoinSV={this.state.bitcoinSVPrice}
                 bitcoinSVHistorical={this.state.bitcoinSVHistorical}
                 bitcoinSVDelta={this.state.bitcoinSVDelta}
@@ -246,7 +275,7 @@ class App extends Component {
                 eos={this.state.eosPrice}
                 eosHistorical={this.state.eosHistorical}
                 eosDelta={this.state.eosDelta}
-                ethereum={this.state.ethereumPrice}
+                ethereum ={this.state.ethereumPrice}
                 ethereumHistorical={this.state.ethereumHistorical}
                 ethereumDelta={this.state.ethereumDelta}
                 litecoin={this.state.litecoinPrice}

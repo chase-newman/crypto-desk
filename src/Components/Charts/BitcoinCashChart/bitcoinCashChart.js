@@ -1,9 +1,10 @@
-import React, { Component } from 'react';
+import React, {Component} from 'react';
 import {Line} from 'react-chartjs-2';
-import './litecoinChart.css';
+import './bitcoinCashChart.css';
 
-class LitecoinChart extends Component {
-   render() {
+
+class BitcoinCashChart extends Component {
+    render() {
         let dateLabels = [];
         if(this.props.dateLabels) {
             this.props.dateLabels.forEach(el => {
@@ -26,10 +27,10 @@ class LitecoinChart extends Component {
                         {
                           fill: false,
                           lineTension: 0.1,
-                          backgroundColor: this.props.litecoinDelta > 0 ? "#00ff00" : "red",
-                          borderColor: this.props.litecoinDelta > 0 ? "#00ff00" : "red",
+                          backgroundColor: this.props.bitcoinCashDelta > 0 ? "#00ff00" : "red",
+                          borderColor: this.props.bitcoinCashDelta > 0 ? "#00ff00" : "red",
                           borderWidth: 1,
-                          data: this.props.litecoinData
+                          data: this.props.bitcoinCashData
                         }
                     ]
                 }
@@ -56,6 +57,6 @@ class LitecoinChart extends Component {
             </div>
         );
     };
-}
+} 
 
-export default LitecoinChart;
+export default BitcoinCashChart;
