@@ -19,6 +19,15 @@ class Ticker extends Component {
             
         }
         
+        // if(this.props.bitcoinHistorical) {
+        //     this.props.bitcoinHistorical.length = 3
+        // }
+    }
+    
+    onComponentDidMount() {
+        // if(this.props.bitcoinHistorical) {
+        //     this.props.bitcoinHistorical.length = 3
+        // }
     }
             
 
@@ -32,6 +41,20 @@ class Ticker extends Component {
     
     render() {
         
+    if(this.props.dateLabels) {
+        if(this.props.dateLabels.length > 5) {
+            this.props.dateLabels.shift();
+            this.props.bitcoinHistorical.shift();
+            this.props.ethereumHistorical.shift();
+            this.props.rippleHistorical.shift();
+            this.props.litecoinHistorical.shift();
+            this.props.tetherHistorical.shift();
+            this.props.eosHistorical.shift();
+            this.props.bitcoinSVHistorical.shift();
+            this.props.bitcoinCashHistorical.shift();
+        }
+    }
+    
     
     return(
         <div>

@@ -8,6 +8,7 @@ class History extends Component {
     constructor(props) {
     super(props)
       this.state = {
+      bitcoinData: null,
       Bitcoin: true,
       listItemColors: {
         bitcoin: "rgba(75,192,192,1)",
@@ -35,6 +36,7 @@ class History extends Component {
         axios.get("https://api.coindesk.com/v1/bpi/historical/close.json")
         .then(response => {
             this.setState({
+              bitcoinData: Object.values(response.data.bpi),
               labels: Object.keys(response.data.bpi),
               datasets: [
                 {
@@ -63,8 +65,115 @@ class History extends Component {
         //   console.log("No spaces in coin name");
         // }
         
-        console.log(event.target.innerHTML)
-
+        // console.log(event.target.innerHTML.toLowerCase())
+        let name = event.target.innerHTML.toLowerCase();
+        let data = this.props.name;
+        if(name === "bitcoin") {
+          this.setState({
+              datasets: [
+              {
+                label: 'price',
+                backgroundColor: 'rgba(75,192,192,1)',
+                borderColor: 'rgba(0,0,0,1)',
+                borderWidth: 2,
+                data: this.state.bitcoinData
+              }
+            ]
+          });
+        }
+        if(name === "ethereum") {
+          this.setState({
+              datasets: [
+              {
+                label: 'price',
+                backgroundColor: 'rgba(75,192,192,1)',
+                borderColor: 'rgba(0,0,0,1)',
+                borderWidth: 2,
+                data: this.props.ethereum
+              }
+            ]
+          });
+        }
+        if(name === "ripple") {
+          this.setState({
+              datasets: [
+              {
+                label: 'price',
+                backgroundColor: 'rgba(75,192,192,1)',
+                borderColor: 'rgba(0,0,0,1)',
+                borderWidth: 2,
+                data: this.props.ripple
+              }
+            ]
+          });
+        }
+        if(name === "litecoin") {
+          this.setState({
+              datasets: [
+              {
+                label: 'price',
+                backgroundColor: 'rgba(75,192,192,1)',
+                borderColor: 'rgba(0,0,0,1)',
+                borderWidth: 2,
+                data: this.props.litecoin
+              }
+            ]
+          });
+        }
+        if(name === "tether") {
+          this.setState({
+              datasets: [
+              {
+                label: 'price',
+                backgroundColor: 'rgba(75,192,192,1)',
+                borderColor: 'rgba(0,0,0,1)',
+                borderWidth: 2,
+                data: this.props.tether
+              }
+            ]
+          });
+        }
+        if(name === "eos") {
+          this.setState({
+              datasets: [
+              {
+                label: 'price',
+                backgroundColor: 'rgba(75,192,192,1)',
+                borderColor: 'rgba(0,0,0,1)',
+                borderWidth: 2,
+                data: this.props.eos
+              }
+            ]
+          });
+        }
+        if(name === "bitcoinsv") {
+          this.setState({
+              datasets: [
+              {
+                label: 'price',
+                backgroundColor: 'rgba(75,192,192,1)',
+                borderColor: 'rgba(0,0,0,1)',
+                borderWidth: 2,
+                data: this.props.bitcoinsv
+              }
+            ]
+          });
+        }
+        if(name === "bitcoincash") {
+          this.setState({
+              datasets: [
+              {
+                label: 'price',
+                backgroundColor: 'rgba(75,192,192,1)',
+                borderColor: 'rgba(0,0,0,1)',
+                borderWidth: 2,
+                data: this.props.bitcoincash
+              }
+            ]
+          });
+        }
+        
+        
         this.setState({
             listItemColors: {
               bitcoin: "#ff6600",
@@ -75,7 +184,7 @@ class History extends Component {
               eos: "#ff6600",
               bitcoinSV: "#ff6600",
               bitcoinCash: "#ff6600",
-              [event.target.name]: 'rgba(75,192,192,1)'
+              [name]: 'rgba(75,192,192,1)'
             },
             Bitcoin: false,
             Ethereum: false,
@@ -84,7 +193,9 @@ class History extends Component {
             Tether: false,
             EOS: false,
             BitcoinSV: false,
+            "Bitcoin SV": false,
             BitcoinCash: false,
+            "Bitcoin Cash": false,
             [event.target.innerHTML]: true
         });
     };

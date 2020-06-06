@@ -21,7 +21,7 @@ const FullArticleList = (props) => {
                         primaryCategory={el.primaryCategory} 
                         image={el.originalImageUrl}
                         description={el.description}
-                        url={el.url}/> 
+                        url={el.url}/>
             ); 
         });          
     }
@@ -29,9 +29,16 @@ const FullArticleList = (props) => {
    
     
     return(
-        <div className="row justify-content-center">
-            <div className="col-8">
-                {articles}
+        <div>
+            <div className="row justify-content-center"> 
+                <div className="col-8">
+                    <h1 className="full-articles-headline">Articles</h1>
+                </div>
+            </div>
+            <div className="row justify-content-center">
+                <div className="col-8">
+                    {articles}
+                </div>
             </div>
         </div>
     );
