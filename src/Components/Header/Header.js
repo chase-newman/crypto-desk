@@ -1,11 +1,14 @@
 import React from 'react';
+import ReactTicker from '../ReactTicker/ReactTicker';
 import {Link} from 'react-router-dom'
 import './Header.css';
 
 
-const Header = () => {
+const Header = (props) => {
     return(
         <nav className="navbar navbar-dark bg-dark sticky-top">
+            <div className="nav-container">
+            <div className="nav-comp-one">
             <Link to="/" className="navbar-brand">CryptoDesk <i className="fab fa-bitcoin fa-2x"></i></Link>
           <ul className="navbar-nav">
             <li className="nav-item">
@@ -17,8 +20,26 @@ const Header = () => {
             <li className="nav-item">
                 <Link to="/history" className="price-history-link">30-Day Coin History</Link>
             </li>
-          </ul>
+             </ul>
+          </div>
+          <div className="nav-comp-two">
+            <ReactTicker 
+            bitcoin={props.bitcoin}
+            ethereum={props.ethereum}
+            ripple={props.ripple}
+            litecoin={props.litecoin}
+            tether={props.tether}
+            eos={props.eos}
+            bitcoinSV={props.bitcoinSV}
+            bitcoinCash={props.bitcoinCash}/>
+          </div>
+          </div>
         </nav>
+
+    
+        
+
+        
     );
 }
 

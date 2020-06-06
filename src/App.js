@@ -3,11 +3,13 @@ import {Route} from 'react-router-dom';
 import './App.css';
 import axios from 'axios';
 import Header from './Components/Header/Header';
-import Ticker from './Components/Ticker/Ticker';
+import TickerTwo from './Components/Ticker/Ticker';
 import Articles from './Components/Articles/Articles';
 import History from './Components/History/History';
 import FullArticleList from './Components/FullArticleList/FullArticleList';
 import AboutPage from './Components/AboutPage/AboutPage';
+
+
 
 class App extends Component {
   state = {
@@ -266,13 +268,22 @@ class App extends Component {
   render() {
     return (
       <div className="App">
-        <Header />
+        <Header 
+            bitcoin={this.state.bitcoinPrice}
+            ethereum={this.state.ethereumPrice}
+            ripple={this.state.ripplePrice}
+            litecoin={this.state.litecoinPrice}
+            tether={this.state.tetherPrice}
+            eos={this.state.eosPrice}
+            bitcoinSV={this.state.bitcoinSVPrice}
+            bitcoinCash={this.state.bitcoinCashPrice}/>
+
         <div className="container-fluid">
           <Route
             path="/" 
             exact 
             render={(props) => 
-              <Ticker
+              <TickerTwo
                 bitcoinCash={this.state.bitcoinCashPrice}
                 bitcoinCashHistorical={this.state.bitcoinCashHistorical}
                 bitcoinCashDelta={this.state.bitcoinCashDelta}
@@ -311,6 +322,7 @@ class App extends Component {
                   bitcoincash={this.state.bitcoinCashHistorical}/>} />
           <Route path="/news" render={(props) => <FullArticleList articles={this.state.articles}/>} />
           <Route path="/about" render={(props) => <AboutPage />} />
+        
         </div>
       </div>
     );    

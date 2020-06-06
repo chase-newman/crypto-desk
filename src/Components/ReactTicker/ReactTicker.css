@@ -1,0 +1,8 @@
+.coin-display {
+    color: white;
+    margin: 0px 25px;
+}
+.ticker-scroll {
+    display: flex;
+    flex-direction: row;
+}
