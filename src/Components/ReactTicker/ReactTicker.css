@@ -1,8 +1,3 @@
-.coin-display {
+.react-ticker-element {
     color: white;
-    margin: 0px 25px;
-}
-.ticker-scroll {
-    display: flex;
-    flex-direction: row;
 }

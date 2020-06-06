@@ -269,14 +269,14 @@ class App extends Component {
     return (
       <div className="App">
         <Header 
-            bitcoin={this.state.bitcoinPrice}
-            ethereum={this.state.ethereumPrice}
-            ripple={this.state.ripplePrice}
-            litecoin={this.state.litecoinPrice}
-            tether={this.state.tetherPrice}
-            eos={this.state.eosPrice}
-            bitcoinSV={this.state.bitcoinSVPrice}
-            bitcoinCash={this.state.bitcoinCashPrice}/>
+            bitcoinDelta={this.state.bitcoinDelta}
+            ethereumDelta={this.state.ethereumDelta}
+            rippleDelta={this.state.rippleDelta}
+            litecoinDelta={this.state.litecoinDelta}
+            tetherDelta={this.state.tetherDelta}
+            eosDelta={this.state.eosDelta}
+            bitcoinSVDelta={this.state.bitcoinSVDelta}
+            bitcoinCashDelta={this.state.bitcoinCashDelta}/>
 
         <div className="container-fluid">
           <Route
