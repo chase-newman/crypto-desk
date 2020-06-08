@@ -5,84 +5,106 @@ import './History.css';
 
 
 class History extends Component {
-    constructor(props) {
-    super(props)
-      this.state = {
-      bitcoinData: null,
-      Bitcoin: true,
-      listItemColors: {
-        bitcoin: "rgba(75,192,192,1)",
-        ethereum: "#ff6600",
-        ripple: "#ff6600",
-        litecoin: "#ff6600",
-        tether: "#ff6600",
-        eos: "#ff6600",
-        bitcoinSV: "#ff6600",
-        bitcoinCash: "#ff6600"
-      },
-      labels: null,
-      datasets: [
-        {
-          label: 'price',
-          backgroundColor: 'rgba(75,192,192,1)',
-          borderColor: 'rgba(0,0,0,1)',
-          borderWidth: 2,
-          data: null
+      constructor(props) {
+        super(props)
+            this.state = {
+            // bitcoinLabels: null,
+            // bitcoinData: null,
+            listItemColors: {
+              bitcoin: "rgba(75,192,192,1)",
+              ethereum: "#ff6600",
+              ripple: "#ff6600",
+              litecoin: "#ff6600",
+              tether: "#ff6600",
+              eos: "#ff6600",
+              bitcoinSV: "#ff6600",
+              bitcoinCash: "#ff6600"
+          },
+          labels: this.props.dateLabels,
+          datasets: [
+            {
+              label: 'price',
+              backgroundColor: 'rgba(75,192,192,1)',
+              borderColor: 'rgba(0,0,0,1)',
+              borderWidth: 2,
+              data: this.props.bitcoin
+            }
+          ]
         }
-      ]
-    }
-}
+      }
+    
     componentDidMount() {
-        axios.get("https://api.coindesk.com/v1/bpi/historical/close.json")
+        axios.get("https://crypto-desk-7f5da.firebaseio.com/coinData.json")
         .then(response => {
+            let data = Object.entries(response.data);
+            let dateLabels = [];
+            let bitcoinHistorical = [];
+            
+            data.forEach(el => {
+              let arr = el[1].bitcoinCash.date;
+              arr = arr.split("")
+              for(let i = 1; i<=6; i++) {
+                    arr.pop();
+                }
+                let num = arr.indexOf(" ");
+                arr = arr.splice(num + 3, arr.length);
+                arr = arr.join("");
+              dateLabels.push(arr);
+              console.log(arr)
+              bitcoinHistorical.push(el[1].bitcoin.price);
+            });
+            
             this.setState({
-              bitcoinData: Object.values(response.data.bpi),
-              labels: Object.keys(response.data.bpi),
+              // bitcoinData: Object.values(response.data.bpi),
+              labels: dateLabels,
               datasets: [
                 {
                   label: 'price',
                   backgroundColor: 'rgba(75,192,192,1)',
                   borderColor: 'rgba(0,0,0,1)',
                   borderWidth: 2,
-                  data: Object.values(response.data.bpi)
+                  data: bitcoinHistorical
                 }
               ]
             })
         });
-        
-        
-      }
+    }
       
     listItemClicked = (event) => {
-        // let coin = event.target.innerHTML;
-        // if(coin === "Bitcoin SV" || "Bitcoin Cash") {
-        //   coin = coin.split("");
-        //   let num = coin.indexOf(" ");
-        //   console.log(coin, num);
-        //   coin.splice(num, 1);
-        //   console.log(coin);
-        // } else {
-        //   console.log("No spaces in coin name");
-        // }
-        
-        // console.log(event.target.innerHTML.toLowerCase())
+        let dateLabels = [];
+        if(this.props.dateLabels) {
+            this.props.dateLabels.forEach(el => {
+              let arr = el.split("");
+              for(let i = 1; i<=6; i++) {
+                  arr.pop();
+              }
+              let num = arr.indexOf(" ");
+              arr = arr.splice(num + 3, arr.length);
+              arr = arr.join("");
+              dateLabels.push(arr)
+            });
+        }
         let name = event.target.innerHTML.toLowerCase();
         let data = this.props.name;
         if(name === "bitcoin") {
           this.setState({
+              // labels: this.state.bitcoinLabels,
+              labels: dateLabels,
               datasets: [
               {
                 label: 'price',
                 backgroundColor: 'rgba(75,192,192,1)',
                 borderColor: 'rgba(0,0,0,1)',
                 borderWidth: 2,
-                data: this.state.bitcoinData
+                // data: this.state.bitcoinData
+                data: this.props.bitcoin
               }
             ]
           });
         }
         if(name === "ethereum") {
           this.setState({
+              labels: dateLabels,
               datasets: [
               {
                 label: 'price',
@@ -96,6 +118,7 @@ class History extends Component {
         }
         if(name === "ripple") {
           this.setState({
+              labels: dateLabels,
               datasets: [
               {
                 label: 'price',
@@ -109,6 +132,7 @@ class History extends Component {
         }
         if(name === "litecoin") {
           this.setState({
+              labels: dateLabels,
               datasets: [
               {
                 label: 'price',
@@ -122,6 +146,7 @@ class History extends Component {
         }
         if(name === "tether") {
           this.setState({
+              labels: dateLabels,
               datasets: [
               {
                 label: 'price',
@@ -135,6 +160,7 @@ class History extends Component {
         }
         if(name === "eos") {
           this.setState({
+              labels: dateLabels,
               datasets: [
               {
                 label: 'price',
@@ -148,26 +174,28 @@ class History extends Component {
         }
         if(name === "bitcoinsv") {
           this.setState({
+              labels: dateLabels,
               datasets: [
               {
                 label: 'price',
                 backgroundColor: 'rgba(75,192,192,1)',
                 borderColor: 'rgba(0,0,0,1)',
                 borderWidth: 2,
-                data: this.props.bitcoinsv
+                data: this.props.bitcoinSV
               }
             ]
           });
         }
         if(name === "bitcoincash") {
           this.setState({
+              labels: dateLabels,
               datasets: [
               {
                 label: 'price',
                 backgroundColor: 'rgba(75,192,192,1)',
                 borderColor: 'rgba(0,0,0,1)',
                 borderWidth: 2,
-                data: this.props.bitcoincash
+                data: this.props.bitcoinCash
               }
             ]
           });
@@ -210,7 +238,7 @@ class History extends Component {
                 maintainAspectRatio: true,
                 title:{
                   display:true,
-                  text:'30 Day Bitcoin Price',
+                  text:'Historical Coin Price Data',
                   fontSize:20,
                   fontColor: "white"
                 },
@@ -256,13 +284,13 @@ class History extends Component {
             <button
               style={{backgroundColor: this.state.listItemColors.bitcoinSV}}
               onClick={this.listItemClicked}
-              name="bitcoinSV"
-              className="list-group-item history-item list-coin">Bitcoin SV</button>
+              name="bitcoinsv"
+              className="list-group-item history-item list-coin">BitcoinSV</button>
             <button
               style={{backgroundColor: this.state.listItemColors.bitcoinCash}}
               onClick={this.listItemClicked}
-              name="bitcoinCash"
-              className="list-group-item history-item list-coin">Bitcoin Cash</button>
+              name="bitcoincash"
+              className="list-group-item history-item list-coin">BitcoinCash</button>
           </ul>
         </div>
       </div>

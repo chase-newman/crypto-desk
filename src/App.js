@@ -14,33 +14,86 @@ import AboutPage from './Components/AboutPage/AboutPage';
 class App extends Component {
   state = {
     bitcoinCashPrice: null,
+    bitcoinCash: {
+      price: null,
+      historical: null,
+      fiveDay: null,
+      delta: null
+    },
     bitcoinCashHistorical: null,
+    bitcoinFiveDay: null,
     bitcoinCashDelta: null,
     bitcoinSVPrice: null,
+    bitcoinSV: {
+      price: null,
+      historical: null,
+      fiveDay: null,
+      delta: null
+    },
     bitcoinSVHistorical: null,
     bitcoinSVDelta: null,
+    bitcoin: {
+      price: null,
+      historical: null,
+      fiveDay: null,
+      delta: null
+    },
     bitcoinPrice: null,
     bitcoinHistorical: null,
     bitcoinFiveDay: null,
     bitcoinDelta: null,
     eosPrice: null,
+    eos: {
+        price: null,
+        historical: null,
+        fiveDay: null,
+        delta: null
+    },
     eosHistorical: null,
     eosDelta: null,
+    ethereum: {
+        price: null,
+        historical: null,
+        fiveDay: null,
+        delta: null
+    },
     ethereumPrice: null,
     ethereumHistorical: null,
     ethereumDelta: null,
+    litecoin: {
+        price: null,
+        historical: null,
+        fiveDay: null,
+        delta: null
+    },
     litecoinPrice: null,
     litecoinHistorical: null,
     litecoinDelta: null,
     tetherPrice: null,
+    tether: {
+      price: null,
+      historical: null,
+      fiveDay: null,
+      delta: null
+    },
     tetherHistorical: null,
     tetherDelta: null,
+    ripple: {
+        price: null,
+        historical: null,
+        fiveDay: null,
+        delta: null
+    },
     ripplePrice: null,
     rippleHistorical: null,
     rippleDelta: null,
     articles: null,
     date: null,
     historicalData: null,
+    dateStore: {
+      dateFull: null,
+      dateFiveDay: null
+    },
     dateLabels: null
   }
   
@@ -89,13 +142,37 @@ class App extends Component {
                     .then(response => {
                       this.setState({
                           bitcoinCashPrice: response.data.BCH.USD,
+                          bitcoinCash: {
+                            price: response.data.BSV.USD 
+                          },
                           bitcoinSVPrice: response.data.BSV.USD,
+                          bitcoinSV: {
+                            price: response.data.BSV.USD 
+                          },
                           bitcoinPrice: response.data.BTC.USD,
+                          bitcoin: {
+                            price: response.data.BTC.USD
+                          },
                           eosPrice: response.data.EOS.USD,
+                          eos: {
+                            price: response.data.EOS.USD
+                          },
                           ethereumPrice: response.data.ETH.USD,
+                          ethereum: {
+                            price: response.data.ETH.USD
+                          },
                           litecoinPrice: response.data.LTC.USD,
+                          litecoin: {
+                            price: response.data.LTC.USD
+                          },
                           tetherPrice: response.data.USDT.USD,
-                          ripplePrice: response.data.XRP.USD
+                          tether: {
+                            price: response.data.USDT.USD
+                          },
+                          ripplePrice: response.data.XRP.USD,
+                          ripple: {
+                            price: response.data.XRP.USD
+                          }
                       }, () => {
                         axios({
                           method: "put",
@@ -142,14 +219,23 @@ class App extends Component {
                                   data = Object.entries(response.data);
                                   
                                   let dateLabels = [];
+                                  let dateFiveDay = [];
                                   let bitcoinCashHistorical = [];
+                                  let bitcoinCashFiveDay = [];
                                   let bitcoinSVHistorical = [];
+                                  let bitcoinSVFiveDay = [];
                                   let bitcoinHistorical = [];
+                                  let bitcoinFiveDay = [];
                                   let eosHistorical = [];
+                                  let eosFiveDay = [];
                                   let ethereumHistorical = [];
+                                  let ethereumFiveDay = [];
                                   let litecoinHistorical = [];
+                                  let litecoinFiveDay = [];
                                   let tetherHistorical = [];
+                                  let tetherFiveDay = [];
                                   let rippleHistorical = [];
+                                  let rippleFiveDay = [];
                                   
                                     data.forEach(el => {
                                     dateLabels.push(el[1].bitcoinCash.date);
@@ -163,23 +249,102 @@ class App extends Component {
                                     rippleHistorical.push(el[1].ripple.ripple);
                                   });
                                   
+                                  bitcoinFiveDay = bitcoinHistorical.slice(0);
+                                  bitcoinSVFiveDay = bitcoinSVHistorical.slice(0);
+                                  bitcoinCashFiveDay = bitcoinCashHistorical.slice(0);
+                                  ethereumFiveDay = ethereumHistorical.slice(0);
+                                  rippleFiveDay = rippleHistorical.slice(0);
+                                  litecoinFiveDay = litecoinHistorical.slice(0);
+                                  tetherFiveDay = tetherHistorical.slice(0);
+                                  eosFiveDay = eosHistorical.slice(0);
+                                  dateFiveDay = dateLabels.slice(0);
+                                  
+                                    if(dateLabels.length > 5) {
+                                      for(let i=dateLabels.length; i > 5; i--) {
+                                          bitcoinFiveDay.shift();
+                                          bitcoinSVFiveDay.shift();
+                                          bitcoinCashFiveDay.shift();
+                                          ethereumFiveDay.shift();
+                                          rippleFiveDay.shift();
+                                          litecoinFiveDay.shift();
+                                          tetherFiveDay.shift();
+                                          eosFiveDay.shift();
+                                          dateFiveDay.shift();
+                                      }
+                                    }  
+                                  
+                                  
+                                  
                                   this.setState({
                                       bitcoinCashHistorical,
                                       bitcoinCashDelta: parseFloat((bitcoinCashHistorical[bitcoinCashHistorical.length - 1] - bitcoinCashHistorical[bitcoinCashHistorical.length - 2]).toFixed(2)),
+                                      bitcoinCash: {
+                                        ...this.state.bitcoinCash,
+                                        historical: bitcoinCashHistorical,
+                                        fiveDay: bitcoinCashFiveDay,
+                                        delta: parseFloat((bitcoinCashHistorical[bitcoinCashHistorical.length - 1] - bitcoinCashHistorical[bitcoinCashHistorical.length - 2]).toFixed(2))
+                                      },
                                       bitcoinSVHistorical,
+                                      bitcoinSV: {
+                                        ...this.state.bitcoinSV,
+                                        historical: bitcoinSVHistorical,
+                                        fiveDay: bitcoinSVFiveDay,
+                                        delta: parseFloat((bitcoinSVHistorical[bitcoinSVHistorical.length - 1] - bitcoinSVHistorical[bitcoinSVHistorical.length - 2]).toFixed(2))
+                                      },
+                                      bitcoinFiveDay,
                                       bitcoinSVDelta: parseFloat((bitcoinSVHistorical[bitcoinSVHistorical.length - 1] - bitcoinSVHistorical[bitcoinSVHistorical.length - 2]).toFixed(2)), 
                                       bitcoinHistorical,
+                                      bitcoin: {
+                                        ...this.state.bitcoin,
+                                        historical: bitcoinHistorical,
+                                        fiveDay: bitcoinFiveDay,
+                                        delta: parseFloat((bitcoinHistorical[bitcoinHistorical.length - 1] - bitcoinHistorical[bitcoinHistorical.length - 2]).toFixed(2))
+                                      },
                                       bitcoinDelta: parseFloat((bitcoinHistorical[bitcoinHistorical.length - 1] - bitcoinHistorical[bitcoinHistorical.length - 2]).toFixed(2)), 
                                       eosHistorical,
+                                      eos: {
+                                        ...this.state.eos,
+                                        historical: eosHistorical,
+                                        fiveDay: eosFiveDay,
+                                        delta: parseFloat((eosHistorical[eosHistorical.length - 1] - eosHistorical[eosHistorical.length - 2]).toFixed(2))
+                                      },
                                       eosDelta: parseFloat((eosHistorical[eosHistorical.length - 1] - eosHistorical[eosHistorical.length - 2]).toFixed(2)), 
                                       ethereumHistorical,
+                                      ethereum: {
+                                        ...this.state.ethereum,
+                                        historical: ethereumHistorical,
+                                        fiveDay: ethereumFiveDay,
+                                        delta: parseFloat((ethereumHistorical[ethereumHistorical.length - 1] - ethereumHistorical[ethereumHistorical.length - 2]).toFixed(2))
+                                      },
                                       ethereumDelta: parseFloat((ethereumHistorical[ethereumHistorical.length - 1] - ethereumHistorical[ethereumHistorical.length - 2]).toFixed(2)), 
                                       litecoinHistorical,
+                                      litecoin: {
+                                        ...this.state.litecoin,
+                                        historical: litecoinHistorical,
+                                        fiveDay: litecoinFiveDay,
+                                        delta: parseFloat((litecoinHistorical[litecoinHistorical.length - 1] - litecoinHistorical[litecoinHistorical.length - 2]).toFixed(2))
+                                      },
                                       litecoinDelta: parseFloat((litecoinHistorical[litecoinHistorical.length - 1] - litecoinHistorical[litecoinHistorical.length - 2]).toFixed(2)),
                                       tetherHistorical,
+                                      tether: {
+                                        ...this.state.tether,
+                                        historical: tetherHistorical,
+                                        fiveDay: tetherFiveDay,
+                                        delta: parseFloat((tetherHistorical[tetherHistorical.length - 1] - tetherHistorical[tetherHistorical.length - 2]).toFixed(4))
+                                      },
                                       tetherDelta: parseFloat((tetherHistorical[tetherHistorical.length - 1] - tetherHistorical[tetherHistorical.length - 2]).toFixed(4)),
                                       rippleHistorical,
+                                      ripple: {
+                                        ...this.state.ripple,
+                                        historical: rippleHistorical,
+                                        fiveDay: rippleFiveDay,
+                                        delta: parseFloat((rippleHistorical[rippleHistorical.length - 1] - rippleHistorical[rippleHistorical.length - 2]).toFixed(4))
+                                      },
                                       rippleDelta: parseFloat((rippleHistorical[rippleHistorical.length - 1] - rippleHistorical[eosHistorical.length - 2]).toFixed(4)),
+                                      dateStore: {
+                                          dateFull: dateLabels,
+                                          dateFiveDay: dateFiveDay  
+                                      },
                                       dateLabels
                                 });  
                               });
@@ -284,42 +449,54 @@ class App extends Component {
             exact 
             render={(props) => 
               <TickerTwo
-                bitcoinCash={this.state.bitcoinCashPrice}
+                bitcoinCashPrice={this.state.bitcoinCashPrice}
+                bitcoinCash={this.state.bitcoinCash}
                 bitcoinCashHistorical={this.state.bitcoinCashHistorical}
                 bitcoinCashDelta={this.state.bitcoinCashDelta}
-                bitcoinSV={this.state.bitcoinSVPrice}
+                bitcoinSVPrice={this.state.bitcoinSVPrice}
+                bitcoinSV={this.state.bitcoinSV}
                 bitcoinSVHistorical={this.state.bitcoinSVHistorical}
                 bitcoinSVDelta={this.state.bitcoinSVDelta}
-                bitcoin={this.state.bitcoinPrice}
+                bitcoin={this.state.bitcoin}
                 bitcoinHistorical={this.state.bitcoinHistorical}
+                bitcoinFiveDay={this.state.bitcoinFiveDay}
                 bitcoinDelta={this.state.bitcoinDelta}
-                eos={this.state.eosPrice}
+                eosPrice={this.state.eosPrice}
+                eos={this.state.eos}
                 eosHistorical={this.state.eosHistorical}
                 eosDelta={this.state.eosDelta}
-                ethereum ={this.state.ethereumPrice}
+                ethereumPrice={this.state.ethereumPrice}
+                ethereum={this.state.ethereum}
                 ethereumHistorical={this.state.ethereumHistorical}
                 ethereumDelta={this.state.ethereumDelta}
-                litecoin={this.state.litecoinPrice}
+                litecoinPrice={this.state.litecoinPrice}
+                litecoin={this.state.litecoin}
                 litecoinHistorical={this.state.litecoinHistorical}
                 litecoinDelta={this.state.litecoinDelta}
-                tether={this.state.tetherPrice}
+                tetherPrice={this.state.tetherPrice}
+                tether={this.state.tether}
                 tetherHistorical={this.state.tetherHistorical}
                 tetherDelta={this.state.tetherDelta}
-                ripple={this.state.ripplePrice}
+                ripplePrice={this.state.ripplePrice}
+                ripple={this.state.ripple}
                 rippleHistorical={this.state.rippleHistorical}
                 rippleDelta={this.state.rippleDelta}
                 historicalData={this.state.historicalData}
-                dateLabels={this.state.dateLabels}/>} />
+                dateLabels={this.state.dateLabels}
+                dateStore={this.state.dateStore}/>} />
           <Route path="/" exact render={(props) => <Articles date={this.state.date} articles={this.state.articles}/>} />
           <Route path="/history" render={(props) => 
               <History 
+                  bitcoin={this.state.bitcoinHistorical}
                   ethereum={this.state.ethereumHistorical}
                   ripple={this.state.rippleHistorical}
                   litecoin={this.state.litecoinHistorical}
                   tether={this.state.tetherHistorical}
                   eos={this.state.eosHistorical}
-                  bitcoinsv={this.state.bitcoinSVHistorical}
-                  bitcoincash={this.state.bitcoinCashHistorical}/>} />
+                  bitcoinSV={this.state.bitcoinSVHistorical}
+                  bitcoinCash={this.state.bitcoinCashHistorical}
+                  dateLabels={this.state.dateStore.dateFull}/>
+          } />
           <Route path="/news" render={(props) => <FullArticleList articles={this.state.articles}/>} />
           <Route path="/about" render={(props) => <AboutPage />} />
         

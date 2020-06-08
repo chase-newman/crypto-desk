@@ -31,12 +31,12 @@ const FullArticleList = (props) => {
     return(
         <div>
             <div className="row justify-content-center"> 
-                <div className="col-8">
+                <div className="col-lg-8 col-md-10 col-sm-12">
                     <h1 className="full-articles-headline">Articles</h1>
                 </div>
             </div>
             <div className="row justify-content-center">
-                <div className="col-8">
+                <div className="col-lg-8 col-md-10 col-sm-12">
                     {articles}
                 </div>
             </div>

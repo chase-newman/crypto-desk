@@ -17,7 +17,7 @@ const Header = (props) => {
                         <Link to="/news" className="news-header-link">News <i className="fas fa-sort-down"></i></Link>
                     </li>
                     <li className="nav-item">
-                        <Link to="/history" className="price-history-link">30-Day Coin History</Link>
+                        <Link to="/history" className="price-history-link">Coin History</Link>
                     </li>
                 </ul>
                 <CSSTicker 

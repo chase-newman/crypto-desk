@@ -52,6 +52,6 @@
   color: #ff6600;
 }
 
-/*@media only screen and (max-width: 768px) {*/
-/*  .ticker-move { animation-duration: 20s; }*/
-/*}*/
+@media only screen and (max-width: 600px) {
+  .ticker-move { animation-duration: 50s; }
+}

@@ -8,14 +8,14 @@ class BitcoinChart extends Component {
         let dateLabels = [];
         if(this.props.dateLabels) {
             this.props.dateLabels.forEach(el => {
-               let arr = el.split("");
-               for(let i = 1; i<=6; i++) {
-                   arr.pop();
-               }
-               let num = arr.indexOf(" ");
-               arr = arr.splice(num + 3, arr.length);
-               arr = arr.join("");
-               dateLabels.push(arr)
+              let arr = el.split("");
+              for(let i = 1; i<=6; i++) {
+                  arr.pop();
+              }
+              let num = arr.indexOf(" ");
+              arr = arr.splice(num + 3, arr.length);
+              arr = arr.join("");
+              dateLabels.push(arr)
             });
         }
         return (

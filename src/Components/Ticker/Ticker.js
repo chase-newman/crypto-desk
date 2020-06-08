@@ -16,9 +16,18 @@ class TickerTwo extends Component {
         super(props);
         this.state = {
             showSecondRow: false,
+            dateLabelsFiveDay: null,
+            bitcoinFiveDay: null,
+            ethereumFiveDay: null,
+            rippleFiveDay: null,
+            litecoinFiveDay: null,
+            tetherFiveDay: null,
+            eosFiveDay: null,
+            bitcoinSVFiveDay: null,
+            bitcoinCashFiveDay: null
             
         }
-        
+        console.log(props)
         // if(this.props.bitcoinHistorical) {
         //     this.props.bitcoinHistorical.length = 3
         // }
@@ -28,6 +37,17 @@ class TickerTwo extends Component {
         // if(this.props.bitcoinHistorical) {
         //     this.props.bitcoinHistorical.length = 3
         // }
+        this.setState({
+            dateLabelsFiveDay: this.props.dateLabels,
+            bitcoinFiveDay: this.props.bitcoinHistorical,
+            ethereumFiveDay: this.props.ethereumHistorical,
+            rippleFiveDay: this.props.rippleHistorical,
+            litecoinFiveDay: this.props.litecoinHistorical,
+            tetherFiveDay: this.props.tetherHistorical,
+            eosFiveDay: this.props.eosHistorical,
+            bitcoinSVFiveDay: this.props.bitcoinSVHistorical,
+            bitcoinCashFiveDay: this.props.bitcoinCashHistorical
+        });
     }
             
 
@@ -42,16 +62,19 @@ class TickerTwo extends Component {
     render() {
         
     if(this.props.dateLabels) {
+            let dateLabelsFiveDay = this.props.dateLabels.slice(0)
+            let bitcoinFiveDay = this.props.bitcoinHistorical.slice(0);
+            let ethereumFiveDay = this.props.ethereumHistorical.slice(0);
+            let rippleFiveDay = this.props.rippleHistorical.slice(0);
+            let litecoinFiveDay = this.props.litecoinHistorical.slice(0);
+            let tetherFiveDay = this.props.tetherHistorical.slice(0);
+            let eosFiveDay = this.props.eosHistorical.slice(0);
+            let bitcoinSVFiveDay = this.props.bitcoinSVHistorical.slice(0);
+            let bitcoinCashFiveDay = this.props.bitcoinCashHistorical.slice(0);
         if(this.props.dateLabels.length > 5) {
-            this.props.dateLabels.shift();
-            this.props.bitcoinHistorical.shift();
-            this.props.ethereumHistorical.shift();
-            this.props.rippleHistorical.shift();
-            this.props.litecoinHistorical.shift();
-            this.props.tetherHistorical.shift();
-            this.props.eosHistorical.shift();
-            this.props.bitcoinSVHistorical.shift();
-            this.props.bitcoinCashHistorical.shift();
+            dateLabelsFiveDay.shift();
+            bitcoinFiveDay.shift();
+            console.log(bitcoinFiveDay)
         }
     }
     
@@ -61,55 +84,55 @@ class TickerTwo extends Component {
         <div className="row ticker-row">
             <div className="col-lg-3 col-md-6  col-sm-8 bitcoin-ticker-col ticker-two">
                 <h3 className="ticker-coin"><strong>Bitcoin</strong> <span className="ticker-symbol">BTC</span></h3>
-                <p style={{color: "white"}}>${this.props.bitcoin}  <span style={this.props.bitcoinDelta > 0 ? {color: "#00ff00"} : {color: "red"}}>
+                <p style={{color: "white"}}>${this.props.bitcoin.price}  <span style={this.props.bitcoin.delta > 0 ? {color: "#00ff00"} : {color: "red"}}>
                         <strong>
-                            {this.props.bitcoinDelta > 0 ? <span>+</span> : <span></span>}{this.props.bitcoinDelta}
+                            {this.props.bitcoinDelta > 0 ? <span>+</span> : <span></span>}{this.props.bitcoin.delta}
                         </strong>
                     </span>
                 </p>
                 <BitcoinChart 
-                    dateLabels={this.props.dateLabels}
-                    bitcoinData={this.props.bitcoinHistorical} 
-                    bitcoinDelta={this.props.bitcoinDelta}/>
+                    dateLabels={this.props.dateStore.dateFiveDay}
+                    bitcoinData={this.props.bitcoin.fiveDay} 
+                    bitcoinDelta={this.props.bitcoin.delta}/>
             </div>
             <div className="col-lg-3 col-md-6 col-sm-8 ethereum-ticker-col ticker-two">
                 <h3 className="ticker-coin"><strong>Ethereum</strong> <span className="ticker-symbol">ETH</span></h3>
-                <p style={{color: "white"}}>${this.props.ethereum}  <span style={this.props.ethereumDelta > 0 ? {color: "#00ff00"} : {color: "red"}}>
+                <p style={{color: "white"}}>${this.props.ethereum.price}  <span style={this.props.ethereum.delta > 0 ? {color: "#00ff00"} : {color: "red"}}>
                         <strong>
-                            {this.props.ethereumDelta > 0 ? <span>+</span> : <span></span>}{this.props.ethereumDelta}
+                            {this.props.ethereum.delta > 0 ? <span>+</span> : <span></span>}{this.props.ethereum.delta}
                         </strong>
                     </span>
                 </p>
                 <EthereumChart 
-                    dateLabels={this.props.dateLabels}
-                    ethereumData={this.props.ethereumHistorical}
-                    ethereumDelta={this.props.ethereumDelta} />
+                    dateLabels={this.props.dateStore.dateFiveDay}
+                    ethereumData={this.props.ethereum.fiveDay}
+                    ethereumDelta={this.props.ethereum.delta} />
             </div>
             <div className="col-lg-3 col-md-6 col-sm-8 ripple-ticker-col ticker-two">
                 <h3 className="ticker-coin"><strong>Ripple</strong> <span className="ticker-symbol">XRP</span></h3>
-                <p style={{color: "white"}}>${this.props.ripple}  <span style={this.props.rippleDelta > 0 ? {color: "#00ff00"} : {color: "red"}}>
+                <p style={{color: "white"}}>${this.props.ripple.price}  <span style={this.props.ripple.delta > 0 ? {color: "#00ff00"} : {color: "red"}}>
                         <strong>
-                            {this.props.rippleDelta > 0 ? <span>+</span> : <span></span>}{this.props.rippleDelta}
+                            {this.props.ripple.delta > 0 ? <span>+</span> : <span></span>}{this.props.ripple.delta}
                         </strong>
                     </span>
                 </p>
                 <RippleChart 
-                    dateLabels={this.props.dateLabels}
-                    rippleData={this.props.rippleHistorical}
-                    rippleDelta={this.props.rippleDelta}/>
+                    dateLabels={this.props.dateStore.dateFiveDay}
+                    rippleData={this.props.ripple.fiveDay}
+                    rippleDelta={this.props.ripple.delta}/>
             </div>
             <div className="col-lg-3 col-md-6 col-sm-8 ripple-ticker-col ticker-two">
                 <h3 className="ticker-coin"><strong>Litecoin</strong> <span className="ticker-symbol">LTC</span></h3>
-                <p style={{color: "white"}}>${this.props.litecoin}  <span style={this.props.litecoinDelta > 0 ? {color: "#00ff00"} : {color: "red"}}>
+                <p style={{color: "white"}}>${this.props.litecoin.price}  <span style={this.props.litecoin.delta > 0 ? {color: "#00ff00"} : {color: "red"}}>
                         <strong>
-                            {this.props.litecoinDelta > 0 ? <span>+</span> : <span></span>}{this.props.litecoinDelta}
+                            {this.props.litecoin.delta > 0 ? <span>+</span> : <span></span>}{this.props.litecoin.delta}
                         </strong>
                     </span>
                 </p>
                 <LitecoinChart 
-                    dateLabels={this.props.dateLabels}
-                    litecoinData={this.props.litecoinHistorical}
-                    litecoinDelta={this.props.litecoinDelta} />
+                    dateLabels={this.props.dateStore.dateFiveDay}
+                    litecoinData={this.props.litecoin.fiveDay}
+                    litecoinDelta={this.props.litecoin.delta} />
                 {this.state.showSecondRow ? null : 
                 <i 
                     className="fas fa-arrow-circle-down fa-2x"
@@ -122,55 +145,55 @@ class TickerTwo extends Component {
                 <div className="row ticker-row">
                 <div className="col-lg-3 col-md-6 col-sm-8 bitcoin-ticker-col ticker-two">
                     <h3 className="ticker-coin"><strong>Tether</strong> <span className="ticker-symbol">USDT</span></h3>
-                    <p style={{color: "white"}}>${this.props.tether}  <span style={this.props.tetherDelta > 0 ? {color: "#00ff00"} : {color: "red"}}>
+                    <p style={{color: "white"}}>${this.props.tether.price}  <span style={this.props.tether.delta > 0 ? {color: "#00ff00"} : {color: "red"}}>
                             <strong>
-                                {this.props.tetherDelta > 0 ? <span>+</span> : <span></span>}{this.props.tetherDelta}
+                                {this.props.tether.delta > 0 ? <span>+</span> : <span></span>}{this.props.tether.delta}
                             </strong>
                         </span>
                     </p>
                     <TetherChart                     
-                        dateLabels={this.props.dateLabels}
-                        tetherData={this.props.tetherHistorical}
-                        tetherDelta={this.props.tetherDelta} />
+                        dateLabels={this.props.dateStore.dateFiveDay}
+                        tetherData={this.props.tether.fiveDay}
+                        tetherDelta={this.props.tether.delta} />
                 </div>
                 <div className="col-lg-3 col-md-6 col-sm-8 ethereum-ticker-col ticker-two">
                     <h3 className="ticker-coin"><strong>EOS</strong> <span className="ticker-symbol">EOS</span></h3>
-                    <p style={{color: "white"}}>${this.props.eos}  <span style={this.props.eosDelta > 0 ? {color: "#00ff00"} : {color: "red"}}>
+                    <p style={{color: "white"}}>${this.props.eos.price}  <span style={this.props.eos.delta > 0 ? {color: "#00ff00"} : {color: "red"}}>
                             <strong>
-                                {this.props.eosDelta > 0 ? <span>+</span> : <span></span>}{this.props.eosDelta}
+                                {this.props.eos.delta > 0 ? <span>+</span> : <span></span>}{this.props.eos.delta}
                             </strong>
                         </span>
                     </p>
                     <EOSChart
-                        dateLabels={this.props.dateLabels}
-                        eosData={this.props.eosHistorical}
-                        eosDelta={this.props.eosDelta}/>
+                        dateLabels={this.props.dateStore.dateFiveDay}
+                        eosData={this.props.eos.fiveDay}
+                        eosDelta={this.props.eos.delta}/>
                 </div>
                 <div className="col-lg-3 col-md-6 col-sm-8 ripple-ticker-col ticker-two">
                     <h3 className="ticker-coin"><strong>Bitcoin SV</strong> <span className="ticker-symbol">BSV</span></h3>
-                    <p style={{color: "white"}}>${this.props.bitcoinSV}  <span style={this.props.bitcoinSVDelta > 0 ? {color: "#00ff00"} : {color: "red"}}>
+                    <p style={{color: "white"}}>${this.props.bitcoinSV.price}  <span style={this.props.bitcoinSV.delta > 0 ? {color: "#00ff00"} : {color: "red"}}>
                             <strong>
-                                {this.props.bitcoinSVDelta > 0 ? <span>+</span> : <span></span>}{this.props.bitcoinSVDelta}
+                                {this.props.bitcoinSV.delta > 0 ? <span>+</span> : <span></span>}{this.props.bitcoinSV.delta}
                             </strong>
                         </span>
                     </p>
                     <BitcoinSVChart 
-                        dateLabels={this.props.dateLabels}
-                        bitcoinSVData={this.props.bitcoinSVHistorical}
-                        bitcoinSVDelta={this.props.bitcoinSVDelta}  />
+                        dateLabels={this.props.dateStore.dateFiveDay}
+                        bitcoinSVData={this.props.bitcoinSV.fiveDay}
+                        bitcoinSVDelta={this.props.bitcoinSV.delta}  />
                 </div>
                 <div className="col-lg-3 col-md-6 col-sm-8 ripple-ticker-col ticker-two">
                     <h3 className="ticker-coin"><strong>Bitcoin Cash</strong> <span className="ticker-symbol">BSH</span></h3>
-                    <p style={{color: "white"}}>${this.props.bitcoinCash}  <span style={this.props.bitcoinCashDelta > 0 ? {color: "#00ff00"} : {color: "red"}}>
+                    <p style={{color: "white"}}>${this.props.bitcoinCash.price}  <span style={this.props.bitcoinCash.delta > 0 ? {color: "#00ff00"} : {color: "red"}}>
                             <strong>
-                                {this.props.bitcoinCashDelta > 0 ? <span>+</span> : <span></span>}{this.props.bitcoinCashDelta}
+                                {this.props.bitcoinCash.delta > 0 ? <span>+</span> : <span></span>}{this.props.bitcoinCash.delta}
                             </strong>
                         </span>
                     </p>
                     <BitcoinCashChart
-                        dateLabels={this.props.dateLabels}
-                        bitcoinCashData={this.props.bitcoinCashHistorical}
-                        bitcoinCashDelta={this.props.bitcoinCashDelta}/>
+                        dateLabels={this.props.dateStore.dateFiveDay}
+                        bitcoinCashData={this.props.bitcoinCash.fiveDay}
+                        bitcoinCashDelta={this.props.bitcoinCash.delta}/>
                     <i 
                         className="fas fa-arrow-circle-up fa-2x"
                         onClick={this.arrowUpClickHandler}></i>
