@@ -8,8 +8,8 @@ class History extends Component {
       constructor(props) {
         super(props)
             this.state = {
-            // bitcoinLabels: null,
-            // bitcoinData: null,
+            bitcoinLabels: null,
+            bitcoinData: null,
             listItemColors: {
               bitcoin: "rgba(75,192,192,1)",
               ethereum: "#ff6600",
@@ -56,6 +56,8 @@ class History extends Component {
             
             this.setState({
               // bitcoinData: Object.values(response.data.bpi),
+              bitcoinLabels: dateLabels,
+              bitcoinData: bitcoinHistorical,
               labels: dateLabels,
               datasets: [
                 {
@@ -88,16 +90,16 @@ class History extends Component {
         let data = this.props.name;
         if(name === "bitcoin") {
           this.setState({
-              // labels: this.state.bitcoinLabels,
-              labels: dateLabels,
+              labels: this.state.bitcoinLabels,
+              // labels: dateLabels,
               datasets: [
               {
                 label: 'price',
                 backgroundColor: 'rgba(75,192,192,1)',
                 borderColor: 'rgba(0,0,0,1)',
                 borderWidth: 2,
-                // data: this.state.bitcoinData
-                data: this.props.bitcoin
+                data: this.state.bitcoinData
+                // data: this.props.bitcoin
               }
             ]
           });
