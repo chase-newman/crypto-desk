@@ -352,7 +352,7 @@ class App extends Component {
                       },
                       contentType: "application/JSON"
                     }).then(response => {
-                      axios.get("https://crypto-desk-7f5da.firebaseio.com/coinData")
+                      axios.get("https://crypto-desk-7f5da.firebaseio.com/coinData.json")
                         .then(response => {
                            data = Object.entries(response.data);
                                   

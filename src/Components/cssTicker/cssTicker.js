@@ -24,7 +24,7 @@ const CSSTicker = ({ bitcoin, ethereum, ripple, litecoin, tether, eos, bitcoinSV
             } else {
                 tickerSymbol = "BCH"
             }
-            return <CSSTickerItem price={el.price} delta={el.delta} tickerSymbol={tickerSymbol} />
+            return <CSSTickerItem price={el.price} delta={el.delta} tickerSymbol={tickerSymbol} key={index}/>
         });
     
         return (

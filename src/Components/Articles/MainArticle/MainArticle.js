@@ -2,7 +2,6 @@ import React from 'react';
 import './MainArticle.css';
 
 const MainArticle = (props) => {
-    
     let imgUrl;
     let title;
     let date;
@@ -19,7 +18,6 @@ const MainArticle = (props) => {
     let descriptionTwo;
     let urlTwo;
     let hotnessTwo;
-    
     
     if(props.mainArticle) {
         imgUrl = props.mainArticle[0].originalImageUrl;
@@ -39,7 +37,7 @@ const MainArticle = (props) => {
         urlTwo = props.mainArticle[1].url;
         hotnessTwo = props.mainArticle[1].hotness.toFixed(2);
     } else {
-        console.log("Not Yet Loaded");
+        // console.log("Not Yet Loaded");
     }
     
     return(

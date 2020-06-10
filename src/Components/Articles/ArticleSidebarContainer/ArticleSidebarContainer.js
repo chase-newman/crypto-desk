@@ -23,7 +23,7 @@ const ArticleSidebarContainer = (props) => {
                         url={el.url}/>
         });
     } else {
-        console.log("Not Ready");
+        // console.log("Not Ready");
     }
     return(
         <div className="col-lg-5 col-md-8 col-sm-10 sidebar-col">

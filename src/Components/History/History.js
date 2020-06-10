@@ -50,12 +50,10 @@ class History extends Component {
                 arr = arr.splice(num + 3, arr.length);
                 arr = arr.join("");
               dateLabels.push(arr);
-              console.log(arr)
               bitcoinHistorical.push(el[1].bitcoin.price);
             });
             
             this.setState({
-              // bitcoinData: Object.values(response.data.bpi),
               bitcoinLabels: dateLabels,
               bitcoinData: bitcoinHistorical,
               labels: dateLabels,
@@ -98,7 +96,6 @@ class History extends Component {
                 borderColor: 'rgba(0,0,0,1)',
                 borderWidth: 2,
                 data: this.state.bitcoinData
-              
               }
             ]
           });
@@ -214,18 +211,7 @@ class History extends Component {
               bitcoinSV: "#ff6600",
               bitcoinCash: "#ff6600",
               [name]: 'rgba(75,192,192,1)'
-            },
-            Bitcoin: false,
-            Ethereum: false,
-            Ripple: false,
-            Litecoin: false,
-            Tether: false,
-            EOS: false,
-            BitcoinSV: false,
-            "Bitcoin SV": false,
-            BitcoinCash: false,
-            "Bitcoin Cash": false,
-            [event.target.innerHTML]: true
+            }
         });
     };
     
