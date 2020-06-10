@@ -1,13 +1,12 @@
-import React, {Component} from 'react';
+import React from 'react';
 import {Line} from 'react-chartjs-2';
 import './bitcoinSVChart.css';
 
 
-class BitcoinSVChart extends Component {
-     render() {
+const BitcoinSVChart = (props) => {
         let dateLabels = [];
-        if(this.props.dateLabels) {
-            this.props.dateLabels.forEach(el => {
+        if(props.dateLabels) {
+            props.dateLabels.forEach(el => {
                let arr = el.split("");
                for(let i = 1; i<=6; i++) {
                    arr.pop();
@@ -27,10 +26,10 @@ class BitcoinSVChart extends Component {
                         {
                           fill: false,
                           lineTension: 0.1,
-                          backgroundColor: this.props.bitcoinSVDelta > 0 ? "#00ff00" : "red",
-                          borderColor: this.props.bitcoinSVDelta > 0 ? "#00ff00" : "red",
+                          backgroundColor: props.bitcoinSVDelta > 0 ? "#00ff00" : "red",
+                          borderColor: props.bitcoinSVDelta > 0 ? "#00ff00" : "red",
                           borderWidth: 1,
-                          data: this.props.bitcoinSVData
+                          data: props.bitcoinSVData
                         }
                     ]
                 }
@@ -57,7 +56,6 @@ class BitcoinSVChart extends Component {
             </div>
         );
     };
-}
 
 
 export default BitcoinSVChart;

@@ -1,14 +1,12 @@
-import React, { Component } from 'react';
+import React from 'react';
 import {Line} from 'react-chartjs-2';
 import './ethereumChart.css';
 
 
-class EthereumChart extends Component {
-        render() {
-            
+const EthereumChart = (props) => {
         let dateLabels = [];
-        if(this.props.dateLabels) {
-            this.props.dateLabels.forEach(el => {
+        if(props.dateLabels) {
+            props.dateLabels.forEach(el => {
                let arr = el.split("");
                for(let i = 0; i <= 5; i++) {
                    arr.pop();
@@ -29,10 +27,10 @@ class EthereumChart extends Component {
                         {
                           fill: false,
                           lineTension: 0.1,
-                          backgroundColor: this.props.ethereumDelta > 0 ? "#00ff00" : "red",
-                          borderColor: this.props.ethereumDelta > 0 ? "#00ff00" : "red",
+                          backgroundColor: props.ethereumDelta > 0 ? "#00ff00" : "red",
+                          borderColor: props.ethereumDelta > 0 ? "#00ff00" : "red",
                           borderWidth: 1,
-                          data: this.props.ethereumData
+                          data: props.ethereumData
                         }
                     ]
                 }
@@ -58,7 +56,7 @@ class EthereumChart extends Component {
             </div>
         );            
     }
-}
+
 
 
 export default EthereumChart;

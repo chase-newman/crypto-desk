@@ -1,55 +1,24 @@
 import React, {Component} from 'react';
-import Chart from '../Charts/Chart/Chart';
 import BitcoinChart from '../Charts/BitcoinChart/bitcoinChart';
 import EthereumChart from '../Charts/EthereumChart/ethereumChart';
 import RippleChart from '../Charts/RippleChart/rippleChart';
-import LitecoinChart from '../Charts/LitcoinChart/litecoinChart';
+import LitecoinChart from '../Charts/LitecoinChart/litecoinChart';
 import TetherChart from '../Charts/TetherChart/tetherChart';
 import EOSChart from '../Charts/EOSChart/eosChart';
 import BitcoinSVChart from '../Charts/BitcoinSVChart/bitcoinSVChart';
 import BitcoinCashChart from '../Charts/BitcoinCashChart/bitcoinCashChart';
-import './Ticker.css';
+import './ChartBanner.css';
 
 
-class TickerTwo extends Component {
+class ChartBanner extends Component {
     constructor(props) {
         super(props);
         this.state = {
             showSecondRow: false,
-            dateLabelsFiveDay: null,
-            bitcoinFiveDay: null,
-            ethereumFiveDay: null,
-            rippleFiveDay: null,
-            litecoinFiveDay: null,
-            tetherFiveDay: null,
-            eosFiveDay: null,
-            bitcoinSVFiveDay: null,
-            bitcoinCashFiveDay: null
             
         }
-        console.log(props)
-        // if(this.props.bitcoinHistorical) {
-        //     this.props.bitcoinHistorical.length = 3
-        // }
     }
     
-    onComponentDidMount() {
-        // if(this.props.bitcoinHistorical) {
-        //     this.props.bitcoinHistorical.length = 3
-        // }
-        this.setState({
-            dateLabelsFiveDay: this.props.dateLabels,
-            bitcoinFiveDay: this.props.bitcoinHistorical,
-            ethereumFiveDay: this.props.ethereumHistorical,
-            rippleFiveDay: this.props.rippleHistorical,
-            litecoinFiveDay: this.props.litecoinHistorical,
-            tetherFiveDay: this.props.tetherHistorical,
-            eosFiveDay: this.props.eosHistorical,
-            bitcoinSVFiveDay: this.props.bitcoinSVHistorical,
-            bitcoinCashFiveDay: this.props.bitcoinCashHistorical
-        });
-    }
-            
 
     arrowDownClickHandler = () => {
         this.setState({showSecondRow: true})
@@ -60,25 +29,7 @@ class TickerTwo extends Component {
     }
     
     render() {
-        
-    if(this.props.dateLabels) {
-            let dateLabelsFiveDay = this.props.dateLabels.slice(0)
-            let bitcoinFiveDay = this.props.bitcoinHistorical.slice(0);
-            let ethereumFiveDay = this.props.ethereumHistorical.slice(0);
-            let rippleFiveDay = this.props.rippleHistorical.slice(0);
-            let litecoinFiveDay = this.props.litecoinHistorical.slice(0);
-            let tetherFiveDay = this.props.tetherHistorical.slice(0);
-            let eosFiveDay = this.props.eosHistorical.slice(0);
-            let bitcoinSVFiveDay = this.props.bitcoinSVHistorical.slice(0);
-            let bitcoinCashFiveDay = this.props.bitcoinCashHistorical.slice(0);
-        if(this.props.dateLabels.length > 5) {
-            dateLabelsFiveDay.shift();
-            bitcoinFiveDay.shift();
-            console.log(bitcoinFiveDay)
-        }
-    }
-    
-    
+
     return(
         <div>
         <div className="row ticker-row">
@@ -86,7 +37,7 @@ class TickerTwo extends Component {
                 <h3 className="ticker-coin"><strong>Bitcoin</strong> <span className="ticker-symbol">BTC</span></h3>
                 <p style={{color: "white"}}>${this.props.bitcoin.price}  <span style={this.props.bitcoin.delta > 0 ? {color: "#00ff00"} : {color: "red"}}>
                         <strong>
-                            {this.props.bitcoinDelta > 0 ? <span>+</span> : <span></span>}{this.props.bitcoin.delta}
+                            {this.props.bitcoin.delta > 0 ? <span>+</span> : <span></span>}{this.props.bitcoin.delta}
                         </strong>
                     </span>
                 </p>
@@ -201,12 +152,7 @@ class TickerTwo extends Component {
             </div> : null }
         </div>
     );        
-        
-        
-        
-        
-    }
-
+  }
 }
 
-export default TickerTwo;
+export default ChartBanner;

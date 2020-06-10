@@ -1,14 +1,12 @@
-import React, { Component } from 'react';
+import React from 'react';
 import {Line} from 'react-chartjs-2';
 import './rippleChart.css';
 
 
-class RippleChart extends Component {
-       render() {
-            
+const RippleChart = (props) => {
         let dateLabels = [];
-        if(this.props.dateLabels) {
-            this.props.dateLabels.forEach(el => {
+        if(props.dateLabels) {
+            props.dateLabels.forEach(el => {
                let arr = el.split("");
                for(let i = 0; i <= 5; i++) {
                    arr.pop();
@@ -29,10 +27,10 @@ class RippleChart extends Component {
                         {
                           fill: false,
                           lineTension: 0.1,
-                          backgroundColor: this.props.rippleDelta > 0 ? "#00ff00" : "red",
-                          borderColor: this.props.rippleDelta > 0 ? "#00ff00" : "red",
+                          backgroundColor: props.rippleDelta > 0 ? "#00ff00" : "red",
+                          borderColor: props.rippleDelta > 0 ? "#00ff00" : "red",
                           borderWidth: 1,
-                          data: this.props.rippleData
+                          data: props.rippleData
                         }
                     ]
                 }
@@ -58,6 +56,6 @@ class RippleChart extends Component {
             </div>
         );            
     }
-}
+
 
 export default RippleChart;

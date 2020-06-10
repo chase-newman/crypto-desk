@@ -1,13 +1,12 @@
-import React, {Component} from 'react';
+import React from 'react';
 import {Line} from 'react-chartjs-2';
 import './bitcoinCashChart.css';
 
 
-class BitcoinCashChart extends Component {
-    render() {
+const BitcoinCashChart = (props) => {
         let dateLabels = [];
-        if(this.props.dateLabels) {
-            this.props.dateLabels.forEach(el => {
+        if(props.dateLabels) {
+            props.dateLabels.forEach(el => {
                let arr = el.split("");
                for(let i = 1; i<=6; i++) {
                    arr.pop();
@@ -27,10 +26,10 @@ class BitcoinCashChart extends Component {
                         {
                           fill: false,
                           lineTension: 0.1,
-                          backgroundColor: this.props.bitcoinCashDelta > 0 ? "#00ff00" : "red",
-                          borderColor: this.props.bitcoinCashDelta > 0 ? "#00ff00" : "red",
+                          backgroundColor: props.bitcoinCashDelta > 0 ? "#00ff00" : "red",
+                          borderColor: props.bitcoinCashDelta > 0 ? "#00ff00" : "red",
                           borderWidth: 1,
-                          data: this.props.bitcoinCashData
+                          data: props.bitcoinCashData
                         }
                     ]
                 }
@@ -56,7 +55,6 @@ class BitcoinCashChart extends Component {
                 />
             </div>
         );
-    };
-} 
+    }; 
 
 export default BitcoinCashChart;

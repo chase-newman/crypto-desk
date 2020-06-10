@@ -1,12 +1,11 @@
-import React, { Component } from 'react';
+import React from 'react';
 import {Line} from 'react-chartjs-2';
 import './litecoinChart.css';
 
-class LitecoinChart extends Component {
-   render() {
+const LitecoinChart = (props) => {
         let dateLabels = [];
-        if(this.props.dateLabels) {
-            this.props.dateLabels.forEach(el => {
+        if(props.dateLabels) {
+            props.dateLabels.forEach(el => {
                let arr = el.split("");
                for(let i = 1; i<=6; i++) {
                    arr.pop();
@@ -26,10 +25,10 @@ class LitecoinChart extends Component {
                         {
                           fill: false,
                           lineTension: 0.1,
-                          backgroundColor: this.props.litecoinDelta > 0 ? "#00ff00" : "red",
-                          borderColor: this.props.litecoinDelta > 0 ? "#00ff00" : "red",
+                          backgroundColor: props.litecoinDelta > 0 ? "#00ff00" : "red",
+                          borderColor: props.litecoinDelta > 0 ? "#00ff00" : "red",
                           borderWidth: 1,
-                          data: this.props.litecoinData
+                          data: props.litecoinData
                         }
                     ]
                 }
@@ -56,6 +55,6 @@ class LitecoinChart extends Component {
             </div>
         );
     };
-}
+
 
 export default LitecoinChart;

@@ -1,6 +1,5 @@
 import React from 'react';
-import CSSTicker from '../CSSTicker/cssTicker';
-import ReactTicker from '../ReactTicker/ReactTicker';
+import CSSTicker from '../cssTicker/cssTicker';
 import {Link} from 'react-router-dom'
 import './Header.css';
 
@@ -20,15 +19,15 @@ const Header = (props) => {
                         <Link to="/history" className="price-history-link">Coin History</Link>
                     </li>
                 </ul>
-                <CSSTicker 
-                    bitcoinDelta={props.bitcoinDelta}
-                    ethereumDelta={props.ethereumDelta}
-                    rippleDelta={props.rippleDelta}
-                    litecoinDelta={props.litecoinDelta}
-                    tetherDelta={props.tetherDelta}
-                    eosDelta={props.eosDelta}
-                    bitcoinSVDelta={props.bitcoinSVDelta}
-                    bitcoinCashDelta={props.bitcoinCashDelta}/>
+                <CSSTicker
+                    bitcoin={props.bitcoin}
+                    ethereum={props.ethereum}
+                    ripple={props.ripple}
+                    litecoin={props.litecoin}
+                    tether={props.tether}
+                    eos={props.eos}
+                    bitcoinSV={props.bitcoinSV}
+                    bitcoinCash={props.bitcoinCash}/>
         </nav>
     );
 }

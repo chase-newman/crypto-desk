@@ -1,12 +1,11 @@
-import React, {Component} from 'react';
+import React from 'react';
 import {Line} from 'react-chartjs-2';
 import './tetherChart.css';
 
-class TetherChart extends Component {
-  render() {
+const TetherChart = (props) => {
         let dateLabels = [];
-        if(this.props.dateLabels) {
-            this.props.dateLabels.forEach(el => {
+        if(props.dateLabels) {
+            props.dateLabels.forEach(el => {
                let arr = el.split("");
                for(let i = 1; i<=6; i++) {
                    arr.pop();
@@ -26,10 +25,10 @@ class TetherChart extends Component {
                         {
                           fill: false,
                           lineTension: 0.1,
-                          backgroundColor: this.props.tetherDelta > 0 ? "#00ff00" : "red",
-                          borderColor: this.props.tetherDelta > 0 ? "#00ff00" : "red",
+                          backgroundColor: props.tetherDelta > 0 ? "#00ff00" : "red",
+                          borderColor: props.tetherDelta > 0 ? "#00ff00" : "red",
                           borderWidth: 1,
-                          data: this.props.tetherData
+                          data: props.tetherData
                         }
                     ]
                 }
@@ -56,6 +55,6 @@ class TetherChart extends Component {
             </div>
         );
     };  
-}
+
 
 export default TetherChart;

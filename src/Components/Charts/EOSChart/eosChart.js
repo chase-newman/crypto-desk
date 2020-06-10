@@ -1,12 +1,11 @@
-import React, {Component} from 'react';
+import React from 'react';
 import {Line} from 'react-chartjs-2';
 import './eosChart.css';
 
-class EOSChart extends Component {
-  render() {
+const EOSChart = (props) => {
         let dateLabels = [];
-        if(this.props.dateLabels) {
-            this.props.dateLabels.forEach(el => {
+        if(props.dateLabels) {
+            props.dateLabels.forEach(el => {
                let arr = el.split("");
                for(let i = 1; i<=6; i++) {
                    arr.pop();
@@ -26,10 +25,10 @@ class EOSChart extends Component {
                         {
                           fill: false,
                           lineTension: 0.1,
-                          backgroundColor: this.props.eosDelta > 0 ? "#00ff00" : "red",
-                          borderColor: this.props.eosDelta > 0 ? "#00ff00" : "red",
+                          backgroundColor: props.eosDelta > 0 ? "#00ff00" : "red",
+                          borderColor: props.eosDelta > 0 ? "#00ff00" : "red",
                           borderWidth: 1,
-                          data: this.props.eosData
+                          data: props.eosData
                         }
                     ]
                 }
@@ -56,7 +55,7 @@ class EOSChart extends Component {
             </div>
         );
     }; 
-}
+
 
 
 export default EOSChart;

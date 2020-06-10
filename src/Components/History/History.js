@@ -87,7 +87,6 @@ class History extends Component {
             });
         }
         let name = event.target.innerHTML.toLowerCase();
-        let data = this.props.name;
         if(name === "bitcoin") {
           this.setState({
               labels: this.state.bitcoinLabels,
@@ -99,7 +98,7 @@ class History extends Component {
                 borderColor: 'rgba(0,0,0,1)',
                 borderWidth: 2,
                 data: this.state.bitcoinData
-                // data: this.props.bitcoin
+              
               }
             ]
           });
