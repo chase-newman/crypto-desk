@@ -246,7 +246,7 @@ class App extends Component {
                                         ...this.state.eos,
                                         historical: eosHistorical,
                                         fiveDay: eosFiveDay,
-                                        delta: parseFloat((eosHistorical[eosHistorical.length - 1] - eosHistorical[eosHistorical.length - 2]).toFixed(2))
+                                        delta: parseFloat((eosHistorical[eosHistorical.length - 1] - eosHistorical[eosHistorical.length - 2]).toFixed(3))
                                       },
                                       ethereum: {
                                         ...this.state.ethereum,
