@@ -8,6 +8,7 @@ import Articles from './Components/Articles/Articles';
 import History from './Components/History/History';
 import FullArticleList from './Components/FullArticleList/FullArticleList';
 import AboutPage from './Components/AboutPage/AboutPage';
+import Aux from './Components/hoc/Aux';
 
 
 
@@ -486,7 +487,7 @@ class App extends Component {
   
   render() {
     return (
-      <div className="App">
+      <Aux>
         <Header
             bitcoin={this.state.bitcoin}
             ethereum={this.state.ethereum}
@@ -528,7 +529,7 @@ class App extends Component {
           <Route path="/about" render={(props) => <AboutPage />} />
         
         </div>
-      </div>
+      </Aux>
     );    
   }
 }
