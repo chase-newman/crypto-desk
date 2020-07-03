@@ -90,7 +90,7 @@ class App extends Component {
               firebaseDate = firebaseDate[firebaseDate.length - 1].bitcoinCash.date;
               //Get the unique ID of the most recent date object store in firebase
               let data = Object.entries(response.data);
-              data = data.slice(0,10)
+
               let idData = data[data.length - 1];
               let id = idData[0];
     //If the dates are the same we want to update the most recent posted data in the firebase database to reflect
@@ -168,10 +168,7 @@ class App extends Component {
                               .then(response => {
                                   data = Object.entries(response.data);
                                   data = data.slice(data.length - 30,data.length + 1);
-                                  
-                                  
-                                  
-                                  
+                                
                                   
                                   let dateLabels = [];
                                   let dateFiveDay = [];
