@@ -18,7 +18,7 @@ class History extends Component {
               tether: "#ff6600",
               eos: "#ff6600",
               bitcoinSV: "#ff6600",
-              bitcoinCash: "#ff6600"
+              bitcoincash: "#ff6600"
           },
           labels: this.props.dateLabels,
           datasets: [
@@ -37,6 +37,7 @@ class History extends Component {
         axios.get("https://crypto-desk-7f5da.firebaseio.com/coinData.json")
         .then(response => {
             let data = Object.entries(response.data);
+            data = data.slice(data.length - 30,data.length + 1);
             let dateLabels = [];
             let bitcoinHistorical = [];
             
@@ -85,6 +86,7 @@ class History extends Component {
             });
         }
         let name = event.target.innerHTML.toLowerCase();
+        console.log(name)
         if(name === "bitcoin") {
           this.setState({
               labels: this.state.bitcoinLabels,
@@ -209,7 +211,7 @@ class History extends Component {
               tether: "#ff6600",
               eos: "#ff6600",
               bitcoinSV: "#ff6600",
-              bitcoinCash: "#ff6600",
+              bitcoincash: "#ff6600",
               [name]: 'rgba(75,192,192,1)'
             }
         });
@@ -274,7 +276,7 @@ class History extends Component {
               name="bitcoinsv"
               className="list-group-item history-item list-coin">BitcoinSV</button>
             <button
-              style={{backgroundColor: this.state.listItemColors.bitcoinCash}}
+              style={{backgroundColor: this.state.listItemColors.bitcoincash}}
               onClick={this.listItemClicked}
               name="bitcoincash"
               className="list-group-item history-item list-coin">BitcoinCash</button>
